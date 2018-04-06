@@ -1,0 +1,55 @@
+<!--Without predefined values-->
+<md-chips data-ng-if="!hasPredefinedValues"
+          data-ng-model="selectedIds"
+          name="{{htmlName}}"
+          placeholder="{{'ENTER_TEXT_SEPARATED_BY_COMMAS' | translate}}"
+          data-md-removable="true"
+          data-md-transform-chip="onTransformChip($chip)"
+          data-md-on-add="onAddChip($chip)"
+          data-md-on-remove="onRemoveChip($chip)"
+          data-ng-required="required && selectedIds.length === 0"
+          data-md-separator-keys="[188]"
+          data-md-add-on-blur="true">
+    <md-chip-template>
+        <span class="u-font-size-14">{{$chip[valueProperty]}}</span>
+    </md-chip-template>
+</md-chips>
+
+<div data-ng-if="displayPatterError"
+     class="has-error">
+    <div class="md-input-message-animation"> {{'INVALID_VALUE' | translate}}</div>
+</div>
+
+<!--With predefined values-->
+<md-chips data-ng-if="hasPredefinedValues"
+          id="{{htmlId}}"
+          name="{{htmlName}}"
+          data-ng-model="selectedIds"
+          data-ng-required="required"
+          data-md-require-match="true"
+          data-md-transform-chip="onTransformChip($chip)"
+          data-md-on-add="onAddChip($chip)"
+          data-md-on-remove="onRemoveChip($chip)">
+
+    <md-autocomplete data-md-selected-item="selectedItem"
+                     data-md-search-text="searchText"
+                     data-md-items="item in items | filter: searchText"
+                     data-md-item-text="item[displayProperty]"
+                     data-md-no-cache="true"
+                     data-md-min-length="0"
+                     placeholder="{{'SELECT_ALL_THAT_APPLY' | translate}}">
+
+        <md-item-template>
+            <span md-highlight-text="searchText"
+                  md-highlight-flags="^i">{{item[displayProperty]}}</span>
+        </md-item-template>
+
+        <md-not-found>
+            {{'NO_ITEMS'|translate}}
+        </md-not-found>
+    </md-autocomplete>
+
+    <md-chip-template>
+        <span class="u-font-size-14">{{$chip[displayProperty]}}</span>
+    </md-chip-template>
+</md-chips>

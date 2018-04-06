@@ -1,0 +1,42 @@
+{
+    "development": {
+        "clientConfigurationValues": {
+
+        }
+    },
+    "development-mock": {
+        "clientConfigurationValues": {
+            "useServerMock": true
+        }
+    },
+    "development-remote": {
+        "clientConfigurationValues": {
+            "remoteBackendUrl": "http://localhost:8080"
+        }
+    },
+    "development-docker": {
+        "clientConfigurationValues": {
+            "remoteBackendUrl": "http://localhost:8080"
+        }
+    },
+    "deployment-develop": {
+        "clientConfigurationValues": {
+            "remoteBackendUrl": "/"
+        }
+    },
+    "deployment-release": {
+        "clientConfigurationValues": {
+            "remoteBackendUrl": "/"
+        }
+    },
+    "deployment-master": {
+        "clientConfigurationValues": {
+            "remoteBackendUrl": "/"
+        }
+    },
+    "deployment-demo": {
+        "clientConfigurationValues": {
+            "remoteBackendUrl": "/"
+        }
+    }
+}

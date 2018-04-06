@@ -1,7 +1,10 @@
-node_modules/
-bower_components/
-.sass-cache/
-.tmp/
-dist/
-node/
-dist.zip
+backend/target/
+.settings/
+.classpath
+.project
+.metadata/
+.cache
+.idea/
+*.sifu.debug
+*.iml
+**/target/

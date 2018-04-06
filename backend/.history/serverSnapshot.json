@@ -1,0 +1,124 @@
+{
+    "name": "backend",
+    "models": [{
+        "name": "User",
+        "properties": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }, {
+            "dslType": "text",
+            "name": "setPasswordCode",
+            "wrappers": ["OPTIONAL"],
+            "maxSize": "255"
+        }, {
+            "dslType": "datetime",
+            "name": "setPasswordTimestamp",
+            "wrappers": []
+        }, {
+            "dslType": "enum",
+            "name": "role",
+            "wrappers": []
+        }, {
+            "dslType": "text",
+            "name": "username",
+            "wrappers": [],
+            "minSize": "3",
+            "maxSize": "128"
+        }, {
+            "dslType": "text",
+            "name": "passwordHash",
+            "wrappers": [],
+            "minSize": "6",
+            "maxSize": "128"
+        }],
+        "references": [],
+        "primaryKeys": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }],
+        "primaryKeySqlName": "PK_USE_I_CF6928",
+        "uniques": [{
+            "properties": [{
+                "dslType": "text",
+                "name": "setPasswordCode",
+                "wrappers": ["OPTIONAL"],
+                "maxSize": "255"
+            }],
+            "sqlName": "UNQ_USE_SPC_93CDAD"
+        }, {
+            "properties": [{
+                "dslType": "text",
+                "name": "username",
+                "wrappers": [],
+                "minSize": "3",
+                "maxSize": "128"
+            }],
+            "sqlName": "UNQ_USE_U_6DC017"
+        }],
+        "indices": []
+    }, {
+        "name": "Aircraft",
+        "properties": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }, {
+            "dslType": "text",
+            "name": "maker",
+            "wrappers": [],
+            "minSize": "1",
+            "maxSize": "128"
+        }, {
+            "dslType": "text",
+            "name": "type",
+            "wrappers": [],
+            "minSize": "1",
+            "maxSize": "128"
+        }],
+        "references": [],
+        "primaryKeys": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }],
+        "primaryKeySqlName": "PK_AIR_I_604A01",
+        "uniques": [],
+        "indices": []
+    }, {
+        "name": "Image",
+        "properties": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }, {
+            "dslType": "text",
+            "name": "filePath",
+            "wrappers": [],
+            "maxSize": "255"
+        }, {
+            "dslType": "long",
+            "name": "aircraftId",
+            "wrappers": []
+        }],
+        "references": [{
+            "name": "aircraft",
+            "model": "Aircraft",
+            "properties": [{
+                "dslType": "long",
+                "name": "aircraftId",
+                "wrappers": []
+            }],
+            "sqlName": "FK_IMA.A_AIR.I_038BFC"
+        }],
+        "primaryKeys": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }],
+        "primaryKeySqlName": "PK_IMA_I_83F5FD",
+        "uniques": [],
+        "indices": []
+    }]
+}

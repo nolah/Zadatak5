@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="generator" id="1523046786935">
+        <!--DROP FOREIGN KEYS CONSTRAINTS-->
+        <dropForeignKeyConstraint baseTableName="Permission" constraintName="FK_PER.R_ROL.I_D99AEA"/>
+        <dropForeignKeyConstraint baseTableName="User" constraintName="FK_USE.R_ROL.I_949253"/>
+        <!--DROP UNIQUE CONSTRAINTS-->
+        <dropUniqueConstraint constraintName="UNQ_ROL_N_28F75D" tableName="Role" uniqueColumns="name"/>
+        <dropUniqueConstraint constraintName="UNQ_PER_AR_RI_288A10" tableName="Permission" uniqueColumns="accessRight, roleId"/>
+        <!--DROP COLUMNS-->
+        <dropColumn columnName="roleId" tableName="User"/>
+        <!--DROP TABLES-->
+        <dropTable tableName="Role"/>
+        <dropTable tableName="Permission"/>
+        <!--ADD COLUMNS-->
+        <addColumn tableName="User">
+            <column name="role" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

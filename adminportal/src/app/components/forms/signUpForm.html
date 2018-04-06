@@ -1,0 +1,78 @@
+<form data-ng-submit="onClickSubmit(signUpForm)"
+      name="signUpForm"
+      role="form"
+      novalidate>
+    <md-input-container class="md-block">
+        <label>{{'SIGN_UP_FORM_SET_PASSWORD_CODE' | translate}}</label>
+        <input data-ng-model="model.setPasswordCode"
+               id="setPasswordCode"
+               name="setPasswordCode"
+               type="password"
+               maxlength="255" />
+        <div data-ng-if="(signUpForm.$submitted || signUpForm.setPasswordCode.$touched) && signUpForm.setPasswordCode.$invalid"
+             data-ng-messages="signUpForm.setPasswordCode.$error"
+             class="help-block">
+            <div data-ng-if="!signUpForm.setPasswordCode.$pristine"
+                 data-ng-message="maxlength">{{'SIGN_UP_FORM_SET_PASSWORD_CODE_MAX' | translate:'{ max: 255 }'}}</div>
+        </div>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>{{'SIGN_UP_FORM_SET_PASSWORD_TIMESTAMP' | translate}}</label>
+        <date-time-picker data-model="model.setPasswordTimestamp"
+                          id="setPasswordTimestamp"
+                          name="setPasswordTimestamp"
+                          required />
+        <div data-ng-if="(signUpForm.$submitted || signUpForm.setPasswordTimestamp.$touched) && signUpForm.setPasswordTimestamp.$invalid"
+             data-ng-messages="signUpForm.setPasswordTimestamp.$error"
+             class="help-block">
+            <div data-ng-message="required">{{'SIGN_UP_FORM_SET_PASSWORD_TIMESTAMP_IS_REQUIRED' | translate}}</div>
+        </div>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>{{'SIGN_UP_FORM_USERNAME' | translate}}</label>
+        <input data-ng-model="model.username"
+               id="username"
+               name="username"
+               type="text"
+               minlength="3"
+               maxlength="128"
+               required />
+        <div data-ng-if="(signUpForm.$submitted || signUpForm.username.$touched) && signUpForm.username.$invalid"
+             data-ng-messages="signUpForm.username.$error"
+             class="help-block">
+            <div data-ng-message="required">{{'SIGN_UP_FORM_USERNAME_IS_REQUIRED' | translate}}</div>
+            <div data-ng-if="!signUpForm.username.$pristine"
+                 data-ng-message="minlength">{{'SIGN_UP_FORM_USERNAME_MIN' | translate:'{ min: 3 }'}}</div>
+            <div data-ng-if="!signUpForm.username.$pristine"
+                 data-ng-message="maxlength">{{'SIGN_UP_FORM_USERNAME_MAX' | translate:'{ max: 128 }'}}</div>
+        </div>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>{{'SIGN_UP_FORM_PASSWORD' | translate}}</label>
+        <input data-ng-model="model.password"
+               id="password"
+               name="password"
+               type="password"
+               minlength="6"
+               maxlength="32"
+               pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\)\[\]{}~\-]{8,}$"
+               required />
+        <div data-ng-if="(signUpForm.$submitted || signUpForm.password.$touched) && signUpForm.password.$invalid"
+             data-ng-messages="signUpForm.password.$error"
+             class="help-block">
+            <div data-ng-message="required">{{'SIGN_UP_FORM_PASSWORD_IS_REQUIRED' | translate}}</div>
+            <div data-ng-if="!signUpForm.password.$pristine"
+                 data-ng-message="minlength">{{'SIGN_UP_FORM_PASSWORD_MIN' | translate:'{ min: 6 }'}}</div>
+            <div data-ng-if="!signUpForm.password.$pristine"
+                 data-ng-message="maxlength">{{'SIGN_UP_FORM_PASSWORD_MAX' | translate:'{ max: 32 }'}}</div>
+            <div data-ng-if="!signUpForm.password.$pristine"
+                 data-ng-message="pattern">{{'SIGN_UP_FORM_PASSWORD_PATTERN' | translate}}</div>
+        </div>
+    </md-input-container>
+    <md-button type="submit"
+               data-ng-disabled="submitDisabled">
+        <span data-ng-if="!submitDisabled">{{'SIGN_UP_FORM_SUBMIT' | translate}}</span>
+        <i data-ng-if="submitDisabled"
+           class="fa fa-circle-o-notch fa-spin"></i>
+    </md-button>
+</form>

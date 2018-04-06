@@ -1,0 +1,64 @@
+<form data-ng-submit="onClickSubmit(createAircraftForm)"
+      name="createAircraftForm"
+      novalidate>
+
+    <div class="md-dialog--header">
+        <div class="md-dialog--title">
+            {{"CREATE_AIRCRAFT_FORM" | translate}}
+        </div>
+    </div>
+
+    <md-dialog-content>
+        <md-input-container class="md-block">
+            <label>{{'CREATE_AIRCRAFT_FORM_MAKER' | translate}}</label>
+            <input data-ng-model="model.maker"
+                   id="maker"
+                   name="maker"
+                   type="text"
+                   minlength="1"
+                   maxlength="128"
+                   required />
+            <div data-ng-if="(createAircraftForm.$submitted || createAircraftForm.maker.$touched) && createAircraftForm.maker.$invalid"
+                 data-ng-messages="createAircraftForm.maker.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'CREATE_AIRCRAFT_FORM_MAKER_IS_REQUIRED' | translate}}</div>
+                <div data-ng-if="!createAircraftForm.maker.$pristine"
+                     data-ng-message="minlength">{{'CREATE_AIRCRAFT_FORM_MAKER_MIN' | translate:'{ min: 1 }'}}</div>
+                <div data-ng-if="!createAircraftForm.maker.$pristine"
+                     data-ng-message="maxlength">{{'CREATE_AIRCRAFT_FORM_MAKER_MAX' | translate:'{ max: 128 }'}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'CREATE_AIRCRAFT_FORM_TYPE' | translate}}</label>
+            <input data-ng-model="model.type"
+                   id="type"
+                   name="type"
+                   type="text"
+                   minlength="1"
+                   maxlength="128"
+                   required />
+            <div data-ng-if="(createAircraftForm.$submitted || createAircraftForm.type.$touched) && createAircraftForm.type.$invalid"
+                 data-ng-messages="createAircraftForm.type.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'CREATE_AIRCRAFT_FORM_TYPE_IS_REQUIRED' | translate}}</div>
+                <div data-ng-if="!createAircraftForm.type.$pristine"
+                     data-ng-message="minlength">{{'CREATE_AIRCRAFT_FORM_TYPE_MIN' | translate:'{ min: 1 }'}}</div>
+                <div data-ng-if="!createAircraftForm.type.$pristine"
+                     data-ng-message="maxlength">{{'CREATE_AIRCRAFT_FORM_TYPE_MAX' | translate:'{ max: 128 }'}}</div>
+            </div>
+        </md-input-container>
+    </md-dialog-content>
+
+    <md-dialog-actions data-layout
+                       data-layout-align="end center">
+        <md-button data-ng-click="dialog.close()">
+            {{'CANCEL' | translate}}
+        </md-button>
+        <md-button type="submit"
+                   data-ng-disabled="submitDisabled"
+                   class="md-raised md-primary">
+            {{'SAVE' | translate}}
+        </md-button>
+    </md-dialog-actions>
+
+</form>

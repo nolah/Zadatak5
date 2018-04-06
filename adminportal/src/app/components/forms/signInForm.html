@@ -1,0 +1,52 @@
+<form data-ng-submit="onClickSubmit(signInForm)"
+      name="signInForm"
+      role="form"
+      novalidate>
+    <md-input-container class="md-block">
+        <label>{{'SIGN_IN_FORM_USERNAME' | translate}}</label>
+        <input data-ng-model="model.username"
+               id="username"
+               name="username"
+               type="text"
+               minlength="3"
+               maxlength="128"
+               required />
+        <div data-ng-if="(signInForm.$submitted || signInForm.username.$touched) && signInForm.username.$invalid"
+             data-ng-messages="signInForm.username.$error"
+             class="help-block">
+            <div data-ng-message="required">{{'SIGN_IN_FORM_USERNAME_IS_REQUIRED' | translate}}</div>
+            <div data-ng-if="!signInForm.username.$pristine"
+                 data-ng-message="minlength">{{'SIGN_IN_FORM_USERNAME_MIN' | translate:'{ min: 3 }'}}</div>
+            <div data-ng-if="!signInForm.username.$pristine"
+                 data-ng-message="maxlength">{{'SIGN_IN_FORM_USERNAME_MAX' | translate:'{ max: 128 }'}}</div>
+        </div>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>{{'SIGN_IN_FORM_PASSWORD' | translate}}</label>
+        <input data-ng-model="model.password"
+               id="password"
+               name="password"
+               type="password"
+               minlength="6"
+               maxlength="32"
+               pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\)\[\]{}~\-]{8,}$"
+               required />
+        <div data-ng-if="(signInForm.$submitted || signInForm.password.$touched) && signInForm.password.$invalid"
+             data-ng-messages="signInForm.password.$error"
+             class="help-block">
+            <div data-ng-message="required">{{'SIGN_IN_FORM_PASSWORD_IS_REQUIRED' | translate}}</div>
+            <div data-ng-if="!signInForm.password.$pristine"
+                 data-ng-message="minlength">{{'SIGN_IN_FORM_PASSWORD_MIN' | translate:'{ min: 6 }'}}</div>
+            <div data-ng-if="!signInForm.password.$pristine"
+                 data-ng-message="maxlength">{{'SIGN_IN_FORM_PASSWORD_MAX' | translate:'{ max: 32 }'}}</div>
+            <div data-ng-if="!signInForm.password.$pristine"
+                 data-ng-message="pattern">{{'SIGN_IN_FORM_PASSWORD_PATTERN' | translate}}</div>
+        </div>
+    </md-input-container>
+    <md-button type="submit"
+               data-ng-disabled="submitDisabled">
+        <span data-ng-if="!submitDisabled">{{'SIGN_IN_FORM_SUBMIT' | translate}}</span>
+        <i data-ng-if="submitDisabled"
+           class="fa fa-circle-o-notch fa-spin"></i>
+    </md-button>
+</form>

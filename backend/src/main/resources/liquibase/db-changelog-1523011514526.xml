@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="generator" id="1523011514526">
+        <!--CREATE TABLES-->
+        <createTable tableName="User">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="setPasswordCode" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="setPasswordTimestamp" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="roleId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="passwordHash" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="Role">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="Permission">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="roleId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accessRight" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <!--ADD FOREIGN KEYS-->
+        <addForeignKeyConstraint baseColumnNames="roleId" baseTableName="User" constraintName="FK_USE.R_ROL.I_949253" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Role"/>
+        <addForeignKeyConstraint baseColumnNames="roleId" baseTableName="Permission" constraintName="FK_PER.R_ROL.I_D99AEA" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Role"/>
+        <!--ADD UNIQUE CONSTRAINTS-->
+        <addUniqueConstraint columnNames="setPasswordCode" constraintName="UNQ_USE_SPC_93CDAD" tableName="User"/>
+        <addUniqueConstraint columnNames="username" constraintName="UNQ_USE_U_6DC017" tableName="User"/>
+        <addUniqueConstraint columnNames="name" constraintName="UNQ_ROL_N_28F75D" tableName="Role"/>
+        <addUniqueConstraint columnNames="accessRight, roleId" constraintName="UNQ_PER_AR_RI_288A10" tableName="Permission"/>
+    </changeSet>
+</databaseChangeLog>

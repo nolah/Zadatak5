@@ -1,0 +1,5 @@
+<span data-ng-click="sort()"
+      class="pointer">{{label | translate}}
+    <i class="fa fa-unsorted"
+       data-ng-class="{'fa-sort-amount-asc': column === currentColumn[0] && direction === 'ASC', 'fa-sort-amount-desc': column === currentColumn[0] && direction === 'DESC'}"></i>
+</span>

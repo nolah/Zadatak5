@@ -1,0 +1,45 @@
+<!--Without auto-complete-->
+<div data-ng-if="showSelect">
+    <label data-ng-if="!hideLabel">{{htmlPlaceholder}}</label>
+    <md-select id="{{htmlId}}"
+               name="{{htmlName}}"
+               data-ng-model="selected.item"
+               data-ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }"
+               data-ng-change="onSelect()"
+               data-ng-required="required"
+               data-ng-disabled="disabled"
+               placeholder="{{hideLabel ? htmlPlaceholder : ''}}">
+
+        <md-option data-ng-if="!required">{{'PLEASE_SELECT' | translate}}</md-option>
+        <md-option data-ng-repeat="item in model"
+                   data-ng-value="item">
+            {{item[displayProperty] | translate}}
+        </md-option>
+    </md-select>
+</div>
+
+<!--With auto-complete-->
+<md-autocomplete data-ng-if="items.length && items.length > 5"
+                 md-input-name="{{htmlName}}"
+                 data-md-selected-item="selected.item"
+                 data-md-search-text-change="searchTextChange(selected.text)"
+                 data-md-search-text="selected.text"
+                 data-md-selected-item-change="onSelect(item)"
+                 data-md-items="item in model | filter: selected.text | orderBy: selected.orderBy"
+                 data-md-item-text="item[displayProperty]"
+                 data-md-no-cache="true"
+                 data-md-min-length="0"
+                 data-md-require-match="required"
+                 data-md-floating-label="{{htmlPlaceholder}}"
+                 data-ng-required="required"
+                 data-ng-disabled="disabled">
+
+    <md-item-template>
+        <span md-highlight-text="selected.text"
+              md-highlight-flags="gi">{{item[displayProperty] | translate}}</span>
+    </md-item-template>
+
+    <md-not-found>
+        {{'NO_ITEMS'|translate}}
+    </md-not-found>
+</md-autocomplete>
