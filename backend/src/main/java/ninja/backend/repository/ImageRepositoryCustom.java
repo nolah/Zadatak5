@@ -4,6 +4,7 @@ import java.util.List;
 
 import ninja.backend.model.*;
 import ninja.backend.model.enumeration.*;
+import ninja.backend.repository.tuple.*;
 
 
 public interface ImageRepositoryCustom {

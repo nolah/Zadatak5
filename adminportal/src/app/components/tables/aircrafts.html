@@ -4,17 +4,17 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>{{'AIRCRAFTS_ID' | translate}}</th>
                         <th>{{'AIRCRAFTS_MAKER' | translate}}</th>
                         <th>{{'AIRCRAFTS_TYPE' | translate}}</th>
+                        <th>{{'AIRCRAFTS_AIRLINE_NAME' | translate}}</th>
                         <th>{{'AIRCRAFTS_EDIT_AIRCRAFT' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr data-ng-repeat="item in model track by $index">
-                        <td>{{item.id}}</td>
                         <td>{{item.maker}}</td>
                         <td>{{item.type}}</td>
+                        <td>{{item.airlineName}}</td>
                         <td>
                             <md-button data-ng-click="onClickEditAircraft(item)">
                                 {{'AIRCRAFTS_EDIT_AIRCRAFT' | translate}}

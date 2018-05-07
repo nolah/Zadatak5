@@ -44,6 +44,7 @@
                 $scope.model.id = data.id;
                 $scope.model.maker = data.maker;
                 $scope.model.type = data.type;
+                $scope.model.airlineId = data.airlineId;
             }).catch(onError);
 
         }
@@ -57,7 +58,8 @@
             let request = {
                 id: $scope.model.id,
                 maker: $scope.model.maker,
-                type: $scope.model.type
+                type: $scope.model.type,
+                airlineId: $scope.model.airlineId
             };
             adminApi.updateAircraft(request).then((data) => {
                 $scope.submitDisabled = false;

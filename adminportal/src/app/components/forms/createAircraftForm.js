@@ -37,7 +37,8 @@
             $scope.submitDisabled = true;
             let request = {
                 maker: $scope.model.maker,
-                type: $scope.model.type
+                type: $scope.model.type,
+                airlineId: $scope.model.airlineId
             };
             adminApi.createAircraft(request).then((data) => {
                 $scope.submitDisabled = false;

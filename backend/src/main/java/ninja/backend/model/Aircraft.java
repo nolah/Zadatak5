@@ -17,6 +17,7 @@ public class Aircraft implements Serializable {
     public static final PropertyPath<Long> ID = new PropertyPath<>("id");
     public static final PropertyPath<String> MAKER = new PropertyPath<>("maker");
     public static final PropertyPath<String> TYPE = new PropertyPath<>("type");
+    public static final PropertyPath<Airline> AIRLINE = new PropertyPath<>("airline");
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,18 +37,25 @@ public class Aircraft implements Serializable {
     @OneToMany(mappedBy = "aircraft", cascade = CascadeType.PERSIST)
     private final Set<Image> images = new LinkedHashSet<>();
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "airlineId")
+    private Airline airline;
+
     public Aircraft() {
     }
 
-    public Aircraft(Long id, String maker, String type) {
+    public Aircraft(Long id, String maker, String type, Airline airline) {
         this.id = id;
         this.maker = maker;
         this.type = type;
+        this.airline = airline;
     }
 
-    public Aircraft(String maker, String type) {
+    public Aircraft(String maker, String type, Airline airline) {
         this.maker = maker;
         this.type = type;
+        this.airline = airline;
     }
 
     public Long getId() {
@@ -78,6 +86,14 @@ public class Aircraft implements Serializable {
         return images;
     }
 
+    public Airline getAirline() {
+        return airline;
+    }
+
+    public void setAirline(Airline airline) {
+        this.airline = airline;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -93,6 +109,10 @@ public class Aircraft implements Serializable {
             return false;
         if (this.type != null && other.type != null && !this.type.equals(other.type))
             return false;
+        if (!((this.airline == null && other.airline == null) || (this.airline != null && other.airline != null && this.airline.getId() == null && other.airline.getId() == null)
+                || this.airline.getId().equals(other.airline.getId())))
+            return false;
+
         return true;
     }
 
@@ -103,12 +123,13 @@ public class Aircraft implements Serializable {
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         result = prime * result + ((this.maker == null) ? 0 : this.maker.hashCode());
         result = prime * result + ((this.type == null) ? 0 : this.type.hashCode());
+        result = prime * result + ((this.airline == null || this.airline.getId() == null) ? 0 : this.airline.getId().hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "Aircraft[" + "this.id=" + this.id + ", this.maker=" + this.maker + ", this.type=" + this.type + "]";
+        return "Aircraft[" + "this.id=" + this.id + ", this.maker=" + this.maker + ", this.type=" + this.type + ", this.airline=" + (this.airline == null ? this.airline : this.airline.getId()) + "]";
     }
 
 }

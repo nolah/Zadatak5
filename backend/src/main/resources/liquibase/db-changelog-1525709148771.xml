@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="generator" id="1525709148771">
+        <!--CREATE TABLES-->
+        <createTable tableName="Airline">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="luggageDetails" type="VARCHAR(256)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <!--ADD COLUMNS-->
+        <addColumn tableName="Aircraft">
+            <column name="airlineId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <!--ADD FOREIGN KEYS-->
+        <addForeignKeyConstraint baseColumnNames="airlineId" baseTableName="Aircraft" constraintName="FK_AIR.A_AIR.I_7AC959" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Airline"/>
+    </changeSet>
+</databaseChangeLog>

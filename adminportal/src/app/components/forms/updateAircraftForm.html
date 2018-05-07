@@ -47,6 +47,18 @@
                      data-ng-message="maxlength">{{'UPDATE_AIRCRAFT_FORM_TYPE_MAX' | translate:'{ max: 128 }'}}</div>
             </div>
         </md-input-container>
+        <md-input-container class="md-block">
+            <airline-dropdown html-id="airlineDropdown"
+                              html-name="airlineDropdown"
+                              selected-id="model.airlineId"
+                              html-required="true"
+                              html-placeholder="{{'UPDATE_AIRCRAFT_FORM_AIRLINE_DROPDOWN' | translate}}"> </airline-dropdown>
+            <div data-ng-if="(updateAircraftForm.$submitted || updateAircraftForm.airlineDropdown.$touched) && updateAircraftForm.airlineDropdown.$invalid"
+                 data-ng-messages="updateAircraftForm.airlineDropdown.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'UPDATE_AIRCRAFT_FORM_AIRLINE_DROPDOWN_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
     </md-dialog-content>
 
     <md-dialog-actions data-layout

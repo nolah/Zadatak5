@@ -15,9 +15,17 @@
         publicStates['signUpPage'] = true;
 
         let stateAccessRights = [];
-        stateAccessRights['aircraftsPage'] = [];
-        stateAccessRights['aircraftsPage']['USER'] = false;
-        stateAccessRights['aircraftsPage']['ADMIN'] = true;
+        stateAccessRights['basePage'] = [];
+        stateAccessRights['basePage']['USER'] = false;
+        stateAccessRights['basePage']['ADMIN'] = true;
+
+        stateAccessRights['basePage.aircraftsPage'] = [];
+        stateAccessRights['basePage.aircraftsPage']['USER'] = false;
+        stateAccessRights['basePage.aircraftsPage']['ADMIN'] = true;
+
+        stateAccessRights['basePage.airlinesPage'] = [];
+        stateAccessRights['basePage.airlinesPage']['USER'] = false;
+        stateAccessRights['basePage.airlinesPage']['ADMIN'] = true;
 
         /* jshint ignore:end */
 

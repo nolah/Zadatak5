@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import ninja.backend.api.*;
+import ninja.backend.repository.tuple.*;
 import ninja.backend.service.*;
 
 import ninja.backend.model.*;

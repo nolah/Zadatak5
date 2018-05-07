@@ -16,10 +16,20 @@
 
     function appConfig($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
-            .state('aircraftsPage', {
+            .state('basePage', {
+                url: '/',
+                templateUrl: 'src/app/components/pages/basePage.html',
+                controller: 'BasePageController'
+            })
+            .state('basePage.aircraftsPage', {
                 url: '/aircrafts',
                 templateUrl: 'src/app/components/pages/aircraftsPage.html',
                 controller: 'AircraftsPageController'
+            })
+            .state('basePage.airlinesPage', {
+                url: '/airlines',
+                templateUrl: 'src/app/components/pages/airlinesPage.html',
+                controller: 'AirlinesPageController'
             })
             .state('signInPage', {
                 url: '/sign-in',

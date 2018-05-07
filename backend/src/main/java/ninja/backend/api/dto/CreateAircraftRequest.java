@@ -12,6 +12,7 @@ public class CreateAircraftRequest implements Serializable {
     private static final long serialVersionUID = 1L;
     public static final PropertyPath<String> MAKER = new PropertyPath<>("maker");
     public static final PropertyPath<String> TYPE = new PropertyPath<>("type");
+    public static final PropertyPath<Long> AIRLINE_ID = new PropertyPath<>("airlineId");
 
     @NotNull
     @Size(min = 1, max = 128)
@@ -21,12 +22,16 @@ public class CreateAircraftRequest implements Serializable {
     @Size(min = 1, max = 128)
     private String type;
 
+    @NotNull
+    private Long airlineId;
+
     private CreateAircraftRequest() {
     }
 
-    public CreateAircraftRequest(String maker, String type) {
+    public CreateAircraftRequest(String maker, String type, Long airlineId) {
         this.maker = maker;
         this.type = type;
+        this.airlineId = airlineId;
     }
 
     public String getMaker() {
@@ -35,6 +40,10 @@ public class CreateAircraftRequest implements Serializable {
 
     public String getType() {
         return type;
+    }
+
+    public Long getAirlineId() {
+        return airlineId;
     }
 
     @Override
@@ -50,6 +59,8 @@ public class CreateAircraftRequest implements Serializable {
             return false;
         if (this.type != null && other.type != null && !this.type.equals(other.type))
             return false;
+        if (this.airlineId != null && other.airlineId != null && !this.airlineId.equals(other.airlineId))
+            return false;
         return true;
     }
 
@@ -59,12 +70,13 @@ public class CreateAircraftRequest implements Serializable {
         int result = 1;
         result = prime * result + ((this.maker == null) ? 0 : this.maker.hashCode());
         result = prime * result + ((this.type == null) ? 0 : this.type.hashCode());
+        result = prime * result + ((this.airlineId == null) ? 0 : this.airlineId.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "CreateAircraftRequest[" + "this.maker=" + this.maker + ", this.type=" + this.type + "]";
+        return "CreateAircraftRequest[" + "this.maker=" + this.maker + ", this.type=" + this.type + ", this.airlineId=" + this.airlineId + "]";
     }
 
 }

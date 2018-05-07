@@ -36,7 +36,11 @@
                     return {
                         id: item.id,
                         maker: item.maker,
-                        type: item.type
+                        type: item.type,
+                        airlineId: item.airlineId,
+                        airlineName: item.airlineName,
+                        airlineDescription: item.airlineDescription,
+                        airlineLuggageDetails: item.airlineLuggageDetails
                     }
                 });
             }).catch(onError);

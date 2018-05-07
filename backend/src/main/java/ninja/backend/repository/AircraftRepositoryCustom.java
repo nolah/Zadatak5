@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import ninja.backend.model.*;
 import ninja.backend.model.enumeration.*;
+import ninja.backend.repository.tuple.*;
 
 
 public interface AircraftRepositoryCustom {
@@ -13,7 +14,9 @@ public interface AircraftRepositoryCustom {
 
     List<Aircraft> findByType(String type);
 
-    List<Aircraft> aircrafts();
+    List<Aircraft> findByAirline(Long airlineId);
+
+    List<AircraftAircraftsTuple> aircrafts();
 
     Optional<Aircraft> readAircraft(Long id);
 

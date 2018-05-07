@@ -104,6 +104,39 @@ public abstract class AbstractApiTest extends AbstractDatabaseTest {
         return RestResponse.fromMvcResult(result, objectMapper, Void.class);
     }
 
+    public RestResponse<List<AirlinesResponse>> airlines(String accessToken) throws Exception {
+
+        final MvcResult result = mockMvc.perform(get("/api" + "/airlines").contentType(MediaType.APPLICATION_JSON).header("Authorization", "Bearer " + accessToken).accept(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        return RestResponse.fromMvcResult(result, objectMapper, List.class, AirlinesResponse.class);
+    }
+
+    public RestResponse<ReadAirlineResponse> readAirline(Long id, String accessToken) throws Exception {
+
+        final MvcResult result = mockMvc.perform(
+                get("/api" + "/read-airline").contentType(MediaType.APPLICATION_JSON).header("Authorization", "Bearer " + accessToken).param("id", id.toString()).accept(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        return RestResponse.fromMvcResult(result, objectMapper, ReadAirlineResponse.class);
+    }
+
+    public RestResponse<Void> createAirline(CreateAirlineRequest request, String accessToken) throws Exception {
+
+        final MvcResult result = mockMvc.perform(post("/api" + "/create-airline").contentType(MediaType.APPLICATION_JSON).header("Authorization", "Bearer " + accessToken)
+                .content(convertObjectToJsonBytes(request)).accept(MediaType.APPLICATION_JSON)).andReturn();
+
+        return RestResponse.fromMvcResult(result, objectMapper, Void.class);
+    }
+
+    public RestResponse<Void> updateAirline(UpdateAirlineRequest request, String accessToken) throws Exception {
+
+        final MvcResult result = mockMvc.perform(put("/api" + "/update-airline").contentType(MediaType.APPLICATION_JSON).header("Authorization", "Bearer " + accessToken)
+                .content(convertObjectToJsonBytes(request)).accept(MediaType.APPLICATION_JSON)).andReturn();
+
+        return RestResponse.fromMvcResult(result, objectMapper, Void.class);
+    }
+
     public RestResponse<Void> findFile(String key, String fileName) throws Exception {
 
         final MvcResult result = mockMvc.perform(get("/api" + "/file/" + key + "/" + fileName + "").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();

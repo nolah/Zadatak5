@@ -3,4 +3,5 @@
     <include file="db-changelog-1523011514526.xml" relativeToChangelogFile="true"/>
     <include file="db-changelog-1523045798561.xml" relativeToChangelogFile="true"/>
     <include file="db-changelog-1523046786935.xml" relativeToChangelogFile="true"/>
+    <include file="db-changelog-1525709148771.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -17,6 +17,7 @@ import ninja.backend.security.JWTService;
 import ninja.backend.model.*;
 import ninja.backend.model.enumeration.*;
 import ninja.backend.repository.*;
+import ninja.backend.repository.tuple.*;
 import ninja.backend.api.dto.*;
 import ninja.backend.web.rest.exception.*;
 

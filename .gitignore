@@ -5,6 +5,7 @@ backend/target/
 .metadata/
 .cache
 .idea/
+.idea/*
 *.sifu.debug
 *.iml
 **/target/

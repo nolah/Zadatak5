@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import ninja.backend.api.*;
+import ninja.backend.repository.tuple.*;
 import ninja.backend.model.*;
 import ninja.backend.api.dto.*;
 import ninja.backend.model.enumeration.*;
@@ -69,6 +70,43 @@ public class AdminApiResource {
         log.debug("PUT /update-aircraft {}", request);
 
         adminApi.updateAircraft(request, principalId);
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/airlines", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<List<AirlinesResponse>> airlines(@ApiIgnore @AuthenticationPrincipal Long principalId) {
+        log.debug("GET /airlines");
+
+        final List<AirlinesResponse> response = adminApi.airlines(principalId);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @RequestMapping(value = "/read-airline", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<ReadAirlineResponse> readAirline(@RequestParam("id") Long id, @ApiIgnore @AuthenticationPrincipal Long principalId) {
+        log.debug("GET /read-airline");
+
+        final ReadAirlineRequest request = new ReadAirlineRequest(id);
+        final ReadAirlineResponse response = adminApi.readAirline(request, principalId);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @RequestMapping(value = "/create-airline", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Void> createAirline(@Valid @RequestBody CreateAirlineRequest request, @ApiIgnore @AuthenticationPrincipal Long principalId) {
+        log.debug("POST /create-airline {}", request);
+
+        adminApi.createAirline(request, principalId);
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/update-airline", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Void> updateAirline(@Valid @RequestBody UpdateAirlineRequest request, @ApiIgnore @AuthenticationPrincipal Long principalId) {
+        log.debug("PUT /update-airline {}", request);
+
+        adminApi.updateAirline(request, principalId);
         return ResponseEntity.ok().build();
     }
 }

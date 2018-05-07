@@ -83,6 +83,12 @@
             },
             openUpdateAircraftForm: (input) => {
                 return openDialog(input, '<update-aircraft-form id="input.id" dialog="dialog"></update-aircraft-form>')
+            },
+            openCreateAirlineForm: (input) => {
+                return openDialog(input, '<create-airline-form  dialog="dialog"></create-airline-form>')
+            },
+            openUpdateAirlineForm: (input) => {
+                return openDialog(input, '<update-airline-form id="input.id" dialog="dialog"></update-airline-form>')
             }
 
         };

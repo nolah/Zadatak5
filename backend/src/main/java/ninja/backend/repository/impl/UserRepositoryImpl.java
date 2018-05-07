@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import ninja.backend.model.*;
 import ninja.backend.model.enumeration.*;
+import ninja.backend.repository.tuple.*;
 import ninja.backend.repository.UserRepositoryCustom;
 
 import com.querydsl.jpa.JPQLQueryFactory;

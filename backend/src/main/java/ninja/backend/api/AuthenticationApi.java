@@ -13,6 +13,8 @@ import ninja.backend.api.dto.*;
 import java.util.*;
 import java.util.stream.*;
 import ninja.backend.model.enumeration.*;
+
+import ninja.backend.repository.tuple.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

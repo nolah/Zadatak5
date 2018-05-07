@@ -1,0 +1,75 @@
+<form data-ng-submit="onClickSubmit(createAirlineForm)"
+      name="createAirlineForm"
+      novalidate>
+
+    <div class="md-dialog--header">
+        <div class="md-dialog--title">
+            {{"CREATE_AIRLINE_FORM" | translate}}
+        </div>
+    </div>
+
+    <md-dialog-content>
+        <md-input-container class="md-block">
+            <label>{{'CREATE_AIRLINE_FORM_NAME' | translate}}</label>
+            <input data-ng-model="model.name"
+                   id="name"
+                   name="name"
+                   type="text"
+                   minlength="1"
+                   maxlength="128"
+                   required />
+            <div data-ng-if="(createAirlineForm.$submitted || createAirlineForm.name.$touched) && createAirlineForm.name.$invalid"
+                 data-ng-messages="createAirlineForm.name.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'CREATE_AIRLINE_FORM_NAME_IS_REQUIRED' | translate}}</div>
+                <div data-ng-if="!createAirlineForm.name.$pristine"
+                     data-ng-message="minlength">{{'CREATE_AIRLINE_FORM_NAME_MIN' | translate:'{ min: 1 }'}}</div>
+                <div data-ng-if="!createAirlineForm.name.$pristine"
+                     data-ng-message="maxlength">{{'CREATE_AIRLINE_FORM_NAME_MAX' | translate:'{ max: 128 }'}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'CREATE_AIRLINE_FORM_DESCRIPTION' | translate}}</label>
+            <input data-ng-model="model.description"
+                   id="description"
+                   name="description"
+                   type="text"
+                   maxlength="256"
+                   required />
+            <div data-ng-if="(createAirlineForm.$submitted || createAirlineForm.description.$touched) && createAirlineForm.description.$invalid"
+                 data-ng-messages="createAirlineForm.description.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'CREATE_AIRLINE_FORM_DESCRIPTION_IS_REQUIRED' | translate}}</div>
+                <div data-ng-if="!createAirlineForm.description.$pristine"
+                     data-ng-message="maxlength">{{'CREATE_AIRLINE_FORM_DESCRIPTION_MAX' | translate:'{ max: 256 }'}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'CREATE_AIRLINE_FORM_LUGGAGE_DETAILS' | translate}}</label>
+            <input data-ng-model="model.luggageDetails"
+                   id="luggageDetails"
+                   name="luggageDetails"
+                   type="text"
+                   maxlength="256" />
+            <div data-ng-if="(createAirlineForm.$submitted || createAirlineForm.luggageDetails.$touched) && createAirlineForm.luggageDetails.$invalid"
+                 data-ng-messages="createAirlineForm.luggageDetails.$error"
+                 class="help-block">
+                <div data-ng-if="!createAirlineForm.luggageDetails.$pristine"
+                     data-ng-message="maxlength">{{'CREATE_AIRLINE_FORM_LUGGAGE_DETAILS_MAX' | translate:'{ max: 256 }'}}</div>
+            </div>
+        </md-input-container>
+    </md-dialog-content>
+
+    <md-dialog-actions data-layout
+                       data-layout-align="end center">
+        <md-button data-ng-click="dialog.close()">
+            {{'CANCEL' | translate}}
+        </md-button>
+        <md-button type="submit"
+                   data-ng-disabled="submitDisabled"
+                   class="md-raised md-primary">
+            {{'SAVE' | translate}}
+        </md-button>
+    </md-dialog-actions>
+
+</form>

@@ -13,6 +13,7 @@ public class ReadAircraftResponse implements Serializable {
     public static final PropertyPath<Long> ID = new PropertyPath<>("id");
     public static final PropertyPath<String> MAKER = new PropertyPath<>("maker");
     public static final PropertyPath<String> TYPE = new PropertyPath<>("type");
+    public static final PropertyPath<Long> AIRLINE_ID = new PropertyPath<>("airlineId");
 
     @NotNull
     private Long id;
@@ -25,13 +26,17 @@ public class ReadAircraftResponse implements Serializable {
     @Size(min = 1, max = 128)
     private String type;
 
+    @NotNull
+    private Long airlineId;
+
     private ReadAircraftResponse() {
     }
 
-    public ReadAircraftResponse(Long id, String maker, String type) {
+    public ReadAircraftResponse(Long id, String maker, String type, Long airlineId) {
         this.id = id;
         this.maker = maker;
         this.type = type;
+        this.airlineId = airlineId;
     }
 
     public Long getId() {
@@ -44,6 +49,10 @@ public class ReadAircraftResponse implements Serializable {
 
     public String getType() {
         return type;
+    }
+
+    public Long getAirlineId() {
+        return airlineId;
     }
 
     @Override
@@ -61,6 +70,8 @@ public class ReadAircraftResponse implements Serializable {
             return false;
         if (this.type != null && other.type != null && !this.type.equals(other.type))
             return false;
+        if (this.airlineId != null && other.airlineId != null && !this.airlineId.equals(other.airlineId))
+            return false;
         return true;
     }
 
@@ -71,12 +82,13 @@ public class ReadAircraftResponse implements Serializable {
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         result = prime * result + ((this.maker == null) ? 0 : this.maker.hashCode());
         result = prime * result + ((this.type == null) ? 0 : this.type.hashCode());
+        result = prime * result + ((this.airlineId == null) ? 0 : this.airlineId.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "ReadAircraftResponse[" + "this.id=" + this.id + ", this.maker=" + this.maker + ", this.type=" + this.type + "]";
+        return "ReadAircraftResponse[" + "this.id=" + this.id + ", this.maker=" + this.maker + ", this.type=" + this.type + ", this.airlineId=" + this.airlineId + "]";
     }
 
 }

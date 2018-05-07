@@ -40,6 +40,9 @@ public abstract class AbstractDatabaseTest implements IFabutRepositoryTest {
     @Inject
     protected ImageRepository imageRepository;
 
+    @Inject
+    protected AirlineRepository airlineRepository;
+
     @Before
     public void setup() {
         Fabut.beforeTest(this);
@@ -73,6 +76,11 @@ public abstract class AbstractDatabaseTest implements IFabutRepositoryTest {
         complexTypes.add(ReadAircraftResponse.class);
         complexTypes.add(CreateAircraftRequest.class);
         complexTypes.add(UpdateAircraftRequest.class);
+        complexTypes.add(AirlinesResponse.class);
+        complexTypes.add(ReadAirlineRequest.class);
+        complexTypes.add(ReadAirlineResponse.class);
+        complexTypes.add(CreateAirlineRequest.class);
+        complexTypes.add(UpdateAirlineRequest.class);
         complexTypes.add(FindFileRequest.class);
         complexTypes.add(FileUploadDTO.class);
         complexTypes.add(FileDTO.class);
@@ -97,6 +105,8 @@ public abstract class AbstractDatabaseTest implements IFabutRepositoryTest {
             return aircraftRepository.findAll();
         } else if (clazz == Image.class) {
             return imageRepository.findAll();
+        } else if (clazz == Airline.class) {
+            return airlineRepository.findAll();
         }
 
         throw new IllegalStateException("No findAll for class: " + clazz.getName());
@@ -110,6 +120,8 @@ public abstract class AbstractDatabaseTest implements IFabutRepositoryTest {
             return aircraftRepository.findOne((Long) id);
         } else if (entityClass == Image.class) {
             return imageRepository.findOne((Long) id);
+        } else if (entityClass == Airline.class) {
+            return airlineRepository.findOne((Long) id);
         }
 
         throw new IllegalStateException("No findById for class: " + entityClass.getName());
@@ -121,6 +133,7 @@ public abstract class AbstractDatabaseTest implements IFabutRepositoryTest {
         entityTypes.add(User.class);
         entityTypes.add(Aircraft.class);
         entityTypes.add(Image.class);
+        entityTypes.add(Airline.class);
         return entityTypes;
     }
 

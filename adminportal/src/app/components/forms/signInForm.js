@@ -41,7 +41,7 @@
                 $scope.errorCode = null;
                 sessionService.save(data);
                 if (data.role == 'ADMIN') {
-                    $state.go('aircraftsPage', {});
+                    $state.go('basePage.aircraftsPage', {});
                 }
             }).catch(onError);
 

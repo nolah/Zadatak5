@@ -76,8 +76,21 @@
             "wrappers": [],
             "minSize": "1",
             "maxSize": "128"
+        }, {
+            "dslType": "long",
+            "name": "airlineId",
+            "wrappers": []
         }],
-        "references": [],
+        "references": [{
+            "name": "airline",
+            "model": "Airline",
+            "properties": [{
+                "dslType": "long",
+                "name": "airlineId",
+                "wrappers": []
+            }],
+            "sqlName": "FK_AIR.A_AIR.I_7AC959"
+        }],
         "primaryKeys": [{
             "dslType": "long",
             "name": "id",
@@ -118,6 +131,38 @@
             "wrappers": []
         }],
         "primaryKeySqlName": "PK_IMA_I_83F5FD",
+        "uniques": [],
+        "indices": []
+    }, {
+        "name": "Airline",
+        "properties": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }, {
+            "dslType": "text",
+            "name": "name",
+            "wrappers": [],
+            "minSize": "1",
+            "maxSize": "128"
+        }, {
+            "dslType": "text",
+            "name": "description",
+            "wrappers": [],
+            "maxSize": "256"
+        }, {
+            "dslType": "text",
+            "name": "luggageDetails",
+            "wrappers": ["OPTIONAL"],
+            "maxSize": "256"
+        }],
+        "references": [],
+        "primaryKeys": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }],
+        "primaryKeySqlName": "PK_AIR_I_8611A6",
         "uniques": [],
         "indices": []
     }]

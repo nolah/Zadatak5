@@ -1,6 +1,7 @@
 package ninja.backend.repository.impl;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import javax.inject.Inject;
 
 import ninja.backend.model.*;
 import ninja.backend.model.enumeration.*;
+import ninja.backend.repository.tuple.*;
 import ninja.backend.repository.AircraftRepositoryCustom;
 
 import com.querydsl.jpa.JPQLQueryFactory;
@@ -36,10 +38,19 @@ public class AircraftRepositoryImpl implements AircraftRepositoryCustom {
     }
 
     @Override
-    public List<Aircraft> aircrafts() {
+    public List<Aircraft> findByAirline(Long airlineId) {
+        log.trace(".findByAirline(airlineId: {})", airlineId);
+        final QAircraft aircraft = QAircraft.aircraft;
+        return factory.select(aircraft).from(aircraft).where(aircraft.airline.id.eq(airlineId)).fetch();
+    }
+
+    @Override
+    public List<AircraftAircraftsTuple> aircrafts() {
         log.trace(".aircrafts()");
         final QAircraft aircraft = QAircraft.aircraft;
-        return factory.select(aircraft).from(aircraft).fetch();
+        final QAirline airline = QAirline.airline;
+        return factory.select(aircraft, airline).from(aircraft).innerJoin(aircraft.airline, airline).fetch().stream().map(t -> new AircraftAircraftsTuple(t.get(aircraft), t.get(airline)))
+                .collect(Collectors.toList());
     }
 
     @Override
