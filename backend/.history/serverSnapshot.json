@@ -165,5 +165,70 @@
         "primaryKeySqlName": "PK_AIR_I_8611A6",
         "uniques": [],
         "indices": []
+    }, {
+        "name": "Flight",
+        "properties": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }, {
+            "dslType": "long",
+            "name": "aircraftId",
+            "wrappers": []
+        }, {
+            "dslType": "datetime",
+            "name": "timestamp",
+            "wrappers": []
+        }, {
+            "dslType": "int",
+            "name": "numberOfEconomySeats",
+            "wrappers": []
+        }, {
+            "dslType": "decimal",
+            "name": "priceOfEconomySeat",
+            "wrappers": [],
+            "precision": 20,
+            "scale": 4
+        }, {
+            "dslType": "int",
+            "name": "numberOfBusinessSeats",
+            "wrappers": []
+        }, {
+            "dslType": "decimal",
+            "name": "priceOfBusinessSeats",
+            "wrappers": [],
+            "precision": 20,
+            "scale": 4
+        }, {
+            "dslType": "text",
+            "name": "fromAirport",
+            "wrappers": [],
+            "minSize": "1",
+            "maxSize": "100"
+        }, {
+            "dslType": "text",
+            "name": "toAirport",
+            "wrappers": [],
+            "minSize": "1",
+            "maxSize": "100"
+        }],
+        "references": [{
+            "name": "aircraft",
+            "model": "Aircraft",
+            "properties": [{
+                "dslType": "long",
+                "name": "aircraftId",
+                "wrappers": []
+            }],
+            "sqlName": "FK_FLI.A_AIR.I_90D799"
+        }],
+        "primaryKeys": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }],
+        "primaryKeySqlName": "PK_FLI_I_B11EFA",
+        "uniques": [],
+        "indices": []
     }]
 }

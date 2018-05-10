@@ -1,0 +1,140 @@
+<form data-ng-submit="onClickSubmit(updateFlightForm)"
+      name="updateFlightForm"
+      novalidate>
+
+    <div class="md-dialog--header">
+        <div class="md-dialog--title">
+            {{"UPDATE_FLIGHT_FORM" | translate}}
+        </div>
+    </div>
+
+    <md-dialog-content>
+        <md-input-container class="md-block">
+            <label>{{'UPDATE_FLIGHT_FORM_TIMESTAMP' | translate}}</label>
+            <input type="datetime-local" data-ng-model="model.timestamp"
+                              id="timestamp"
+                              name="timestamp"
+                              required />
+            <div data-ng-if="(updateFlightForm.$submitted || updateFlightForm.timestamp.$touched) && updateFlightForm.timestamp.$invalid"
+                 data-ng-messages="updateFlightForm.timestamp.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'UPDATE_FLIGHT_FORM_TIMESTAMP_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'UPDATE_FLIGHT_FORM_NUMBER_OF_ECONOMY_SEATS' | translate}}</label>
+            <input data-ng-model="model.numberOfEconomySeats"
+                   id="numberOfEconomySeats"
+                   name="numberOfEconomySeats"
+                   type="number"
+                   required />
+            <div data-ng-if="(updateFlightForm.$submitted || updateFlightForm.numberOfEconomySeats.$touched) && updateFlightForm.numberOfEconomySeats.$invalid"
+                 data-ng-messages="updateFlightForm.numberOfEconomySeats.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'UPDATE_FLIGHT_FORM_NUMBER_OF_ECONOMY_SEATS_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'UPDATE_FLIGHT_FORM_PRICE_OF_ECONOMY_SEAT' | translate}}</label>
+            <input data-ng-model="model.priceOfEconomySeat"
+                   id="priceOfEconomySeat"
+                   name="priceOfEconomySeat"
+                   type="number"
+                   required />
+            <div data-ng-if="(updateFlightForm.$submitted || updateFlightForm.priceOfEconomySeat.$touched) && updateFlightForm.priceOfEconomySeat.$invalid"
+                 data-ng-messages="updateFlightForm.priceOfEconomySeat.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'UPDATE_FLIGHT_FORM_PRICE_OF_ECONOMY_SEAT_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'UPDATE_FLIGHT_FORM_NUMBER_OF_BUSINESS_SEATS' | translate}}</label>
+            <input data-ng-model="model.numberOfBusinessSeats"
+                   id="numberOfBusinessSeats"
+                   name="numberOfBusinessSeats"
+                   type="number"
+                   required />
+            <div data-ng-if="(updateFlightForm.$submitted || updateFlightForm.numberOfBusinessSeats.$touched) && updateFlightForm.numberOfBusinessSeats.$invalid"
+                 data-ng-messages="updateFlightForm.numberOfBusinessSeats.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'UPDATE_FLIGHT_FORM_NUMBER_OF_BUSINESS_SEATS_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'UPDATE_FLIGHT_FORM_PRICE_OF_BUSINESS_SEATS' | translate}}</label>
+            <input data-ng-model="model.priceOfBusinessSeats"
+                   id="priceOfBusinessSeats"
+                   name="priceOfBusinessSeats"
+                   type="number"
+                   required />
+            <div data-ng-if="(updateFlightForm.$submitted || updateFlightForm.priceOfBusinessSeats.$touched) && updateFlightForm.priceOfBusinessSeats.$invalid"
+                 data-ng-messages="updateFlightForm.priceOfBusinessSeats.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'UPDATE_FLIGHT_FORM_PRICE_OF_BUSINESS_SEATS_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'UPDATE_FLIGHT_FORM_FROM_AIRPORT' | translate}}</label>
+            <input data-ng-model="model.fromAirport"
+                   id="fromAirport"
+                   name="fromAirport"
+                   type="text"
+                   minlength="1"
+                   maxlength="100"
+                   required />
+            <div data-ng-if="(updateFlightForm.$submitted || updateFlightForm.fromAirport.$touched) && updateFlightForm.fromAirport.$invalid"
+                 data-ng-messages="updateFlightForm.fromAirport.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'UPDATE_FLIGHT_FORM_FROM_AIRPORT_IS_REQUIRED' | translate}}</div>
+                <div data-ng-if="!updateFlightForm.fromAirport.$pristine"
+                     data-ng-message="minlength">{{'UPDATE_FLIGHT_FORM_FROM_AIRPORT_MIN' | translate:'{ min: 1 }'}}</div>
+                <div data-ng-if="!updateFlightForm.fromAirport.$pristine"
+                     data-ng-message="maxlength">{{'UPDATE_FLIGHT_FORM_FROM_AIRPORT_MAX' | translate:'{ max: 100 }'}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'UPDATE_FLIGHT_FORM_TO_AIRPORT' | translate}}</label>
+            <input data-ng-model="model.toAirport"
+                   id="toAirport"
+                   name="toAirport"
+                   type="text"
+                   minlength="1"
+                   maxlength="100"
+                   required />
+            <div data-ng-if="(updateFlightForm.$submitted || updateFlightForm.toAirport.$touched) && updateFlightForm.toAirport.$invalid"
+                 data-ng-messages="updateFlightForm.toAirport.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'UPDATE_FLIGHT_FORM_TO_AIRPORT_IS_REQUIRED' | translate}}</div>
+                <div data-ng-if="!updateFlightForm.toAirport.$pristine"
+                     data-ng-message="minlength">{{'UPDATE_FLIGHT_FORM_TO_AIRPORT_MIN' | translate:'{ min: 1 }'}}</div>
+                <div data-ng-if="!updateFlightForm.toAirport.$pristine"
+                     data-ng-message="maxlength">{{'UPDATE_FLIGHT_FORM_TO_AIRPORT_MAX' | translate:'{ max: 100 }'}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <aircraft-dropdown html-id="aircraftDropdown"
+                               html-name="aircraftDropdown"
+                               selected-id="model.aircraftId"
+                               html-required="true"
+                               html-placeholder="{{'UPDATE_FLIGHT_FORM_AIRCRAFT_DROPDOWN' | translate}}"> </aircraft-dropdown>
+            <div data-ng-if="(updateFlightForm.$submitted || updateFlightForm.aircraftDropdown.$touched) && updateFlightForm.aircraftDropdown.$invalid"
+                 data-ng-messages="updateFlightForm.aircraftDropdown.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'UPDATE_FLIGHT_FORM_AIRCRAFT_DROPDOWN_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+    </md-dialog-content>
+
+    <md-dialog-actions data-layout
+                       data-layout-align="end center">
+        <md-button data-ng-click="dialog.close()">
+            {{'CANCEL' | translate}}
+        </md-button>
+        <md-button type="submit"
+                   data-ng-disabled="submitDisabled"
+                   class="md-raised md-primary">
+            {{'SAVE' | translate}}
+        </md-button>
+    </md-dialog-actions>
+
+</form>

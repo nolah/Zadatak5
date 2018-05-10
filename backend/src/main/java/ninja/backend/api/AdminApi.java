@@ -1,7 +1,11 @@
 package ninja.backend.api;
 
+import java.time.*;
+
 import javax.inject.Inject;
 
+import ninja.backend.web.rest.exception.BadRequestError;
+import org.joda.time.DateTime;
 import org.slf4j.*;
 
 import ninja.backend.model.*;
@@ -10,9 +14,13 @@ import ninja.backend.api.dto.*;
 
 import java.util.*;
 import java.util.stream.*;
+
 import ninja.backend.model.enumeration.*;
 
+import java.math.BigDecimal;
+
 import ninja.backend.repository.tuple.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +39,9 @@ public class AdminApi {
 
     @Inject
     private AirlineRepository airlineRepository;
+
+    @Inject
+    private FlightRepository flightRepository;
 
     @Transactional(readOnly = true)
     public List<AircraftsResponse> aircrafts(Long principalId) {
@@ -155,6 +166,125 @@ public class AdminApi {
         model.setDescription(dto.getDescription());
         model.setLuggageDetails(Optional.ofNullable(dto.getLuggageDetails()));
         airlineRepository.save(model);
+        //TODO process event
+
+    }
+
+    @Transactional(readOnly = true)
+    public List<FlightsResponse> flights(Long principalId) {
+        log.debug("flights {}", principalId);
+        //TODO check security constraints
+
+        final User principal = userRepository.findOne(principalId);
+
+        final List<FlightFlightsTuple> tuples = flightRepository.flights();
+        return tuples.stream().map(tuple -> {
+            final Long id = tuple.getFlight().getId();
+            final Long aircraftId = tuple.getFlight().getAircraft().getId();
+            final ZonedDateTime timestamp = tuple.getFlight().getTimestamp();
+            final Integer numberOfEconomySeats = tuple.getFlight().getNumberOfEconomySeats();
+            final BigDecimal priceOfEconomySeat = tuple.getFlight().getPriceOfEconomySeat();
+            final Integer numberOfBusinessSeats = tuple.getFlight().getNumberOfBusinessSeats();
+            final BigDecimal priceOfBusinessSeats = tuple.getFlight().getPriceOfBusinessSeats();
+            final String fromAirport = tuple.getFlight().getFromAirport();
+            final String toAirport = tuple.getFlight().getToAirport();
+            final String aircraftMaker = tuple.getAircraft().getMaker();
+            final String aircraftType = tuple.getAircraft().getType();
+            final Long aircraftAirlineId = tuple.getAircraft().getAirline().getId();
+            final Long airlineId = tuple.getAirline().getId();
+            final String airlineName = tuple.getAirline().getName();
+            final String airlineDescription = tuple.getAirline().getDescription();
+            final String airlineLuggageDetails = tuple.getAirline().getLuggageDetails().orElse(null);
+            return new FlightsResponse(id, aircraftId, timestamp, numberOfEconomySeats, priceOfEconomySeat, numberOfBusinessSeats, priceOfBusinessSeats, fromAirport, toAirport, aircraftMaker,
+                    aircraftType, aircraftAirlineId, airlineId, airlineName, airlineDescription, airlineLuggageDetails);
+        }).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public ReadFlightResponse readFlight(ReadFlightRequest dto, Long principalId) {
+        log.debug("readFlight {} {}", dto, principalId);
+        //TODO check security constraints(id)
+
+        final User principal = userRepository.findOne(principalId);
+
+        final Flight model = flightRepository.readFlight(dto.getId()).get();
+        final Long id = model.getId();
+        final Long aircraftId = model.getAircraft().getId();
+        final ZonedDateTime timestamp = model.getTimestamp();
+        final Integer numberOfEconomySeats = model.getNumberOfEconomySeats();
+        final BigDecimal priceOfEconomySeat = model.getPriceOfEconomySeat();
+        final Integer numberOfBusinessSeats = model.getNumberOfBusinessSeats();
+        final BigDecimal priceOfBusinessSeats = model.getPriceOfBusinessSeats();
+        final String fromAirport = model.getFromAirport();
+        final String toAirport = model.getToAirport();
+        return new ReadFlightResponse(id, aircraftId, timestamp, numberOfEconomySeats, priceOfEconomySeat, numberOfBusinessSeats, priceOfBusinessSeats, fromAirport, toAirport);
+    }
+
+    public void createFlights(CreateFlightsRequest dto, Long principalId) {
+        log.debug("createFlights {} {}", dto, principalId);
+        //TODO check security constraints(aircraftId)
+
+        if (dto.getSchemeType() == FlightSchemeType.ONE_OFF) {
+            saveFlight(dto, dto.getFromDate());
+        } else if (dto.getSchemeType() == FlightSchemeType.WORK_DAYS) {
+            if (dto.getToDate() == null) {
+                throw new BadRequestError("toDate.missing", "toDate is required for scheme type: " + dto.getSchemeType());
+            }
+
+            ZonedDateTime shiftedDate = dto.getFromDate();
+            while (shiftedDate.isBefore(dto.getToDate())) {
+                if (shiftedDate.getDayOfWeek() != DayOfWeek.SATURDAY && shiftedDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
+                    saveFlight(dto, shiftedDate);
+                    shiftedDate = shiftedDate.plusDays(1);
+                } else if (shiftedDate.getDayOfWeek() == DayOfWeek.SATURDAY) {
+                    shiftedDate = shiftedDate.plusDays(2);
+                } else if (shiftedDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                    shiftedDate = shiftedDate.plusDays(1);
+                }
+            }
+
+        } else if (dto.getSchemeType() == FlightSchemeType.EVERYDAY) {
+            ZonedDateTime shiftedDate = dto.getFromDate();
+            while (shiftedDate.isBefore(dto.getToDate())) {
+                saveFlight(dto, shiftedDate);
+                shiftedDate = shiftedDate.plusDays(1);
+            }
+
+        }else{
+            throw new IllegalStateException("Unsupported scheme type: " + dto.getSchemeType());
+        }
+    }
+
+    private void saveFlight(CreateFlightsRequest dto, ZonedDateTime timestamp) {
+        final Flight model = new Flight();
+        model.setAircraft(aircraftRepository.findOne(dto.getAircraftId()));
+        model.setTimestamp(timestamp);
+        model.setNumberOfEconomySeats(dto.getNumberOfEconomySeats());
+        model.setPriceOfEconomySeat(dto.getPriceOfEconomySeat());
+        model.setNumberOfBusinessSeats(dto.getNumberOfBusinessSeats());
+        model.setPriceOfBusinessSeats(dto.getPriceOfBusinessSeats());
+        model.setFromAirport(dto.getFromAirport());
+        model.setToAirport(dto.getToAirport());
+        // model.setSchemeType(); // TODO set this field manually
+        flightRepository.save(model);
+    }
+
+    public void updateFlight(UpdateFlightRequest dto, Long principalId) {
+        log.debug("updateFlight {} {}", dto, principalId);
+        //TODO check security constraints(id, aircraftId)
+
+        final User principal = userRepository.findOne(principalId);
+
+        final Flight model = flightRepository.findOne(dto.getId());
+        model.setAircraft(aircraftRepository.findOne(dto.getAircraftId()));
+        model.setTimestamp(dto.getTimestamp());
+        model.setNumberOfEconomySeats(dto.getNumberOfEconomySeats());
+        model.setPriceOfEconomySeat(dto.getPriceOfEconomySeat());
+        model.setNumberOfBusinessSeats(dto.getNumberOfBusinessSeats());
+        model.setPriceOfBusinessSeats(dto.getPriceOfBusinessSeats());
+        model.setFromAirport(dto.getFromAirport());
+        model.setToAirport(dto.getToAirport());
+        flightRepository.save(model);
         //TODO process event
 
     }

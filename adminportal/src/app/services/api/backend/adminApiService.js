@@ -20,7 +20,11 @@
             airlines: airlines,
             readAirline: readAirline,
             createAirline: createAirline,
-            updateAirline: updateAirline
+            updateAirline: updateAirline,
+            flights: flights,
+            readFlight: readFlight,
+            createFlights: createFlights,
+            updateFlight: updateFlight
         };
 
         function init(backendUrl) {
@@ -250,6 +254,162 @@
                         name: model.name,
                         description: model.description,
                         luggageDetails: model.luggageDetails
+                    },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': "Bearer " + sessionService.getSessionData().accessToken
+                    }
+                });
+            }
+            return securityService.securedCall(httpRequest).then(onSuccess);
+        }
+
+        /** flights (secured)
+         * request - Unit
+         *
+         * response - List [
+         *   FlightsResponse {
+         *     id: Int
+         *     aircraftId: Int
+         *     timestamp: DateTime
+         *     numberOfEconomySeats: Int
+         *     priceOfEconomySeat: Decimal(20, 4)
+         *     numberOfBusinessSeats: Int
+         *     priceOfBusinessSeats: Decimal(20, 4)
+         *     fromAirport: String
+         *     toAirport: String
+         *     aircraftMaker: String
+         *     aircraftType: String
+         *     aircraftAirlineId: Int
+         *     airlineId: Int
+         *     airlineName: String
+         *     airlineDescription: String
+         *     airlineLuggageDetails: Optional[String]
+         *   }
+         * ]
+         *
+         */
+        function flights() {
+            function httpRequest() {
+                return $http({
+                    method: 'GET',
+                    url: backendApiUrl + '/api/flights',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': "Bearer " + sessionService.getSessionData().accessToken
+                    }
+                });
+            }
+            return securityService.securedCall(httpRequest).then(onSuccess);
+        }
+
+        /** readFlight (secured)
+         * request - Unit
+         *
+         * response - ReadFlightResponse {
+         *   id: Int
+         *   aircraftId: Int
+         *   timestamp: DateTime
+         *   numberOfEconomySeats: Int
+         *   priceOfEconomySeat: Decimal(20, 4)
+         *   numberOfBusinessSeats: Int
+         *   priceOfBusinessSeats: Decimal(20, 4)
+         *   fromAirport: String
+         *   toAirport: String
+         * }
+         *
+         */
+        function readFlight(model) {
+            function httpRequest() {
+                return $http({
+                    method: 'GET',
+                    url: backendApiUrl + '/api/read-flight',
+                    params: {
+                        id: model.id
+                    },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': "Bearer " + sessionService.getSessionData().accessToken
+                    }
+                });
+            }
+            return securityService.securedCall(httpRequest).then(onSuccess);
+        }
+
+        /** createFlights (secured)
+         * request - CreateFlightsRequest {
+         *   aircraftId: Int
+         *   fromDate: DateTime
+         *   toDate: Optional[DateTime]
+         *   schemeType: FlightSchemeType
+         *   numberOfEconomySeats: Int
+         *   priceOfEconomySeat: Decimal(20, 4)
+         *   numberOfBusinessSeats: Int
+         *   priceOfBusinessSeats: Decimal(20, 4)
+         *   fromAirport: String
+         *   toAirport: String
+         * }
+         *
+         * response - Unit
+         *
+         */
+        function createFlights(model) {
+            function httpRequest() {
+                return $http({
+                    method: 'POST',
+                    url: backendApiUrl + '/api/create-flights',
+                    data: {
+                        aircraftId: model.aircraftId,
+                        fromDate: model.fromDate,
+                        toDate: model.toDate,
+                        schemeType: model.schemeType,
+                        numberOfEconomySeats: model.numberOfEconomySeats,
+                        priceOfEconomySeat: model.priceOfEconomySeat,
+                        numberOfBusinessSeats: model.numberOfBusinessSeats,
+                        priceOfBusinessSeats: model.priceOfBusinessSeats,
+                        fromAirport: model.fromAirport,
+                        toAirport: model.toAirport
+                    },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': "Bearer " + sessionService.getSessionData().accessToken
+                    }
+                });
+            }
+            return securityService.securedCall(httpRequest).then(onSuccess);
+        }
+
+        /** updateFlight (secured)
+         * request - UpdateFlightRequest {
+         *   id: Int
+         *   aircraftId: Int
+         *   timestamp: DateTime
+         *   numberOfEconomySeats: Int
+         *   priceOfEconomySeat: Decimal(20, 4)
+         *   numberOfBusinessSeats: Int
+         *   priceOfBusinessSeats: Decimal(20, 4)
+         *   fromAirport: String
+         *   toAirport: String
+         * }
+         *
+         * response - Unit
+         *
+         */
+        function updateFlight(model) {
+            function httpRequest() {
+                return $http({
+                    method: 'PUT',
+                    url: backendApiUrl + '/api/update-flight',
+                    data: {
+                        id: model.id,
+                        aircraftId: model.aircraftId,
+                        timestamp: model.timestamp,
+                        numberOfEconomySeats: model.numberOfEconomySeats,
+                        priceOfEconomySeat: model.priceOfEconomySeat,
+                        numberOfBusinessSeats: model.numberOfBusinessSeats,
+                        priceOfBusinessSeats: model.priceOfBusinessSeats,
+                        fromAirport: model.fromAirport,
+                        toAirport: model.toAirport
                     },
                     headers: {
                         'Content-Type': 'application/json',

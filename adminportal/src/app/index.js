@@ -31,6 +31,11 @@
                 templateUrl: 'src/app/components/pages/airlinesPage.html',
                 controller: 'AirlinesPageController'
             })
+            .state('basePage.flightsPage', {
+                url: '/flights',
+                templateUrl: 'src/app/components/pages/flightsPage.html',
+                controller: 'FlightsPageController'
+            })
             .state('signInPage', {
                 url: '/sign-in',
                 templateUrl: 'src/app/components/pages/signInPage.html',

@@ -25,6 +25,7 @@ import ninja.backend.repository.tuple.*;
 import ninja.backend.model.*;
 import ninja.backend.api.dto.*;
 import ninja.backend.model.enumeration.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @RestController
@@ -107,6 +108,43 @@ public class AdminApiResource {
         log.debug("PUT /update-airline {}", request);
 
         adminApi.updateAirline(request, principalId);
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/flights", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<List<FlightsResponse>> flights(@ApiIgnore @AuthenticationPrincipal Long principalId) {
+        log.debug("GET /flights");
+
+        final List<FlightsResponse> response = adminApi.flights(principalId);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @RequestMapping(value = "/read-flight", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<ReadFlightResponse> readFlight(@RequestParam("id") Long id, @ApiIgnore @AuthenticationPrincipal Long principalId) {
+        log.debug("GET /read-flight");
+
+        final ReadFlightRequest request = new ReadFlightRequest(id);
+        final ReadFlightResponse response = adminApi.readFlight(request, principalId);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @RequestMapping(value = "/create-flights", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Void> createFlights(@Valid @RequestBody CreateFlightsRequest request, @ApiIgnore @AuthenticationPrincipal Long principalId) {
+        log.debug("POST /create-flights {}", request);
+
+        adminApi.createFlights(request, principalId);
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/update-flight", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Void> updateFlight(@Valid @RequestBody UpdateFlightRequest request, @ApiIgnore @AuthenticationPrincipal Long principalId) {
+        log.debug("PUT /update-flight {}", request);
+
+        adminApi.updateFlight(request, principalId);
         return ResponseEntity.ok().build();
     }
 }

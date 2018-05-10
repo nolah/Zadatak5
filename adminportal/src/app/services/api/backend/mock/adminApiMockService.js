@@ -17,7 +17,11 @@
             airlines: airlines,
             readAirline: readAirline,
             createAirline: createAirline,
-            updateAirline: updateAirline
+            updateAirline: updateAirline,
+            flights: flights,
+            readFlight: readFlight,
+            createFlights: createFlights,
+            updateFlight: updateFlight
         };
 
         /** aircrafts (secured)
@@ -184,6 +188,120 @@
          *
          */
         function updateAirline(model) {
+            return $timeout(function () {
+                return {
+                    data: {
+                        //TODO fill up mocked data values
+                    }
+                };
+            }, 500);
+        }
+
+        /** flights (secured)
+         * request - Unit
+         *
+         * response - List [
+         *   FlightsResponse {
+         *     id: Int
+         *     aircraftId: Int
+         *     timestamp: DateTime
+         *     numberOfEconomySeats: Int
+         *     priceOfEconomySeat: Decimal(20, 4)
+         *     numberOfBusinessSeats: Int
+         *     priceOfBusinessSeats: Decimal(20, 4)
+         *     fromAirport: String
+         *     toAirport: String
+         *     aircraftMaker: String
+         *     aircraftType: String
+         *     aircraftAirlineId: Int
+         *     airlineId: Int
+         *     airlineName: String
+         *     airlineDescription: String
+         *     airlineLuggageDetails: Optional[String]
+         *   }
+         * ]
+         *
+         */
+        function flights() {
+            return $timeout(function () {
+                return {
+                    data: [
+                        //TODO fill up mocked data values
+                    ]
+                };
+            }, 500);
+        }
+
+        /** readFlight (secured)
+         * request - Unit
+         *
+         * response - ReadFlightResponse {
+         *   id: Int
+         *   aircraftId: Int
+         *   timestamp: DateTime
+         *   numberOfEconomySeats: Int
+         *   priceOfEconomySeat: Decimal(20, 4)
+         *   numberOfBusinessSeats: Int
+         *   priceOfBusinessSeats: Decimal(20, 4)
+         *   fromAirport: String
+         *   toAirport: String
+         * }
+         *
+         */
+        function readFlight(model) {
+            return $timeout(function () {
+                return {
+                    data: {
+                        //TODO fill up mocked data values
+                    }
+                };
+            }, 500);
+        }
+
+        /** createFlights (secured)
+         * request - CreateFlightsRequest {
+         *   aircraftId: Int
+         *   fromDate: DateTime
+         *   toDate: Optional[DateTime]
+         *   schemeType: FlightSchemeType
+         *   numberOfEconomySeats: Int
+         *   priceOfEconomySeat: Decimal(20, 4)
+         *   numberOfBusinessSeats: Int
+         *   priceOfBusinessSeats: Decimal(20, 4)
+         *   fromAirport: String
+         *   toAirport: String
+         * }
+         *
+         * response - Unit
+         *
+         */
+        function createFlights(model) {
+            return $timeout(function () {
+                return {
+                    data: {
+                        //TODO fill up mocked data values
+                    }
+                };
+            }, 500);
+        }
+
+        /** updateFlight (secured)
+         * request - UpdateFlightRequest {
+         *   id: Int
+         *   aircraftId: Int
+         *   timestamp: DateTime
+         *   numberOfEconomySeats: Int
+         *   priceOfEconomySeat: Decimal(20, 4)
+         *   numberOfBusinessSeats: Int
+         *   priceOfBusinessSeats: Decimal(20, 4)
+         *   fromAirport: String
+         *   toAirport: String
+         * }
+         *
+         * response - Unit
+         *
+         */
+        function updateFlight(model) {
             return $timeout(function () {
                 return {
                     data: {

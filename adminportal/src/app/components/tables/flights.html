@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'FLIGHTS_ID' | translate}}</th>
+                        <th>{{'FLIGHTS_TIMESTAMP' | translate}}</th>
+                        <th>{{'FLIGHTS_FROM_AIRPORT' | translate}}</th>
+                        <th>{{'FLIGHTS_TO_AIRPORT' | translate}}</th>
+                        <th>{{'FLIGHTS_AIRLINE_NAME' | translate}}</th>
+                        <th>{{'FLIGHTS_AIRCRAFT_MAKER' | translate}}</th>
+                        <th>{{'FLIGHTS_AIRCRAFT_TYPE' | translate}}</th>
+                        <th>{{'FLIGHTS_NUMBER_OF_ECONOMY_SEATS' | translate}}</th>
+                        <th>{{'FLIGHTS_PRICE_OF_ECONOMY_SEAT' | translate}}</th>
+                        <th>{{'FLIGHTS_NUMBER_OF_BUSINESS_SEATS' | translate}}</th>
+                        <th>{{'FLIGHTS_PRICE_OF_BUSINESS_SEATS' | translate}}</th>
+                        <th>{{'FLIGHTS_UPDATE_FLIGHT' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="item in model track by $index">
+                        <td>{{item.id}}</td>
+                        <td>{{item.timestamp| date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{item.fromAirport}}</td>
+                        <td>{{item.toAirport}}</td>
+                        <td>{{item.airlineName}}</td>
+                        <td>{{item.aircraftMaker}}</td>
+                        <td>{{item.aircraftType}}</td>
+                        <td>{{item.numberOfEconomySeats}}</td>
+                        <td>{{item.priceOfEconomySeat}}</td>
+                        <td>{{item.numberOfBusinessSeats}}</td>
+                        <td>{{item.priceOfBusinessSeats}}</td>
+                        <td>
+                            <md-button data-ng-click="onClickUpdateFlight(item)">
+                                {{'FLIGHTS_UPDATE_FLIGHT' | translate}}
+                            </md-button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot data-ng-if="model.length == 0">
+                    <tr>
+                        <td colspan="100%"
+                            class="small text-muted text-center">{{'DATA_SET_EMPTY_NO_DATA' | translate}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

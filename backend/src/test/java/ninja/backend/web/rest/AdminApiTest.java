@@ -124,4 +124,60 @@ public class AdminApiTest extends AbstractApiTest {
 
     }
 
+    @Test
+    public void testFlights() throws Exception {
+
+        // setup
+
+        // method
+        takeSnapshot();
+        //flights().getData();
+        fail("test not implemented");
+
+        // assert
+
+    }
+
+    @Test
+    public void testReadFlight() throws Exception {
+
+        // setup
+
+        // method
+        takeSnapshot();
+        //readFlight().getData();
+        fail("test not implemented");
+
+        // assert
+
+    }
+
+    @Test
+    public void testCreateFlights() throws Exception {
+
+        // setup
+
+        // method
+        takeSnapshot();
+        //createFlights().getData();
+        fail("test not implemented");
+
+        // assert
+
+    }
+
+    @Test
+    public void testUpdateFlight() throws Exception {
+
+        // setup
+
+        // method
+        takeSnapshot();
+        //updateFlight().getData();
+        fail("test not implemented");
+
+        // assert
+
+    }
+
 }

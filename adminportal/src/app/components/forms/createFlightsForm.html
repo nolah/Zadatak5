@@ -1,0 +1,164 @@
+<form data-ng-submit="onClickSubmit(createFlightsForm)"
+      name="createFlightsForm"
+      novalidate>
+
+    <div class="md-dialog--header">
+        <div class="md-dialog--title">
+            {{"CREATE_FLIGHTS_FORM" | translate}}
+        </div>
+    </div>
+
+    <md-dialog-content>
+        <md-input-container class="md-block">
+            <flight-scheme-type-drop-down html-id="schemeType"
+                                          html-name="schemeType"
+                                          selected-id="model.schemeType"
+                                          html-required="true"
+                                          html-placeholder="{{'CREATE_FLIGHTS_FORM_SCHEME_TYPE' | translate}}"> </flight-scheme-type-drop-down>
+            <div data-ng-if="(createFlightsForm.$submitted || createFlightsForm.schemeType.$touched) && createFlightsForm.schemeType.$invalid"
+                 data-ng-messages="createFlightsForm.schemeType.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'CREATE_FLIGHTS_FORM_SCHEME_TYPE_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'CREATE_FLIGHTS_FORM_FROM_DATE' | translate}}</label>
+            <input type="datetime-local"
+                              data-ng-model="model.fromDate"
+                              id="fromDate"
+                              name="fromDate"
+                              required />
+            <div data-ng-if="(createFlightsForm.$submitted || createFlightsForm.fromDate.$touched) && createFlightsForm.fromDate.$invalid"
+                 data-ng-messages="createFlightsForm.fromDate.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'CREATE_FLIGHTS_FORM_FROM_DATE_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container data-ng-if="model.schemeType === 'WORK_DAYS' || model.schemeType === 'EVERYDAY'" class="md-block">
+            <label>{{'CREATE_FLIGHTS_FORM_TO_DATE' | translate}}</label>
+            <input type="datetime-local"
+                              data-ng-model="model.toDate"
+                              id="toDate"
+                              name="toDate" />
+            <div data-ng-if="(createFlightsForm.$submitted || createFlightsForm.toDate.$touched) && createFlightsForm.toDate.$invalid"
+                 data-ng-messages="createFlightsForm.toDate.$error"
+                 class="help-block">
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'CREATE_FLIGHTS_FORM_NUMBER_OF_ECONOMY_SEATS' | translate}}</label>
+            <input data-ng-model="model.numberOfEconomySeats"
+                   id="numberOfEconomySeats"
+                   name="numberOfEconomySeats"
+                   type="number"
+                   required />
+            <div data-ng-if="(createFlightsForm.$submitted || createFlightsForm.numberOfEconomySeats.$touched) && createFlightsForm.numberOfEconomySeats.$invalid"
+                 data-ng-messages="createFlightsForm.numberOfEconomySeats.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'CREATE_FLIGHTS_FORM_NUMBER_OF_ECONOMY_SEATS_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'CREATE_FLIGHTS_FORM_PRICE_OF_ECONOMY_SEAT' | translate}}</label>
+            <input data-ng-model="model.priceOfEconomySeat"
+                   id="priceOfEconomySeat"
+                   name="priceOfEconomySeat"
+                   type="number"
+                   required />
+            <div data-ng-if="(createFlightsForm.$submitted || createFlightsForm.priceOfEconomySeat.$touched) && createFlightsForm.priceOfEconomySeat.$invalid"
+                 data-ng-messages="createFlightsForm.priceOfEconomySeat.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'CREATE_FLIGHTS_FORM_PRICE_OF_ECONOMY_SEAT_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'CREATE_FLIGHTS_FORM_NUMBER_OF_BUSINESS_SEATS' | translate}}</label>
+            <input data-ng-model="model.numberOfBusinessSeats"
+                   id="numberOfBusinessSeats"
+                   name="numberOfBusinessSeats"
+                   type="number"
+                   required />
+            <div data-ng-if="(createFlightsForm.$submitted || createFlightsForm.numberOfBusinessSeats.$touched) && createFlightsForm.numberOfBusinessSeats.$invalid"
+                 data-ng-messages="createFlightsForm.numberOfBusinessSeats.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'CREATE_FLIGHTS_FORM_NUMBER_OF_BUSINESS_SEATS_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'CREATE_FLIGHTS_FORM_PRICE_OF_BUSINESS_SEATS' | translate}}</label>
+            <input data-ng-model="model.priceOfBusinessSeats"
+                   id="priceOfBusinessSeats"
+                   name="priceOfBusinessSeats"
+                   type="number"
+                   required />
+            <div data-ng-if="(createFlightsForm.$submitted || createFlightsForm.priceOfBusinessSeats.$touched) && createFlightsForm.priceOfBusinessSeats.$invalid"
+                 data-ng-messages="createFlightsForm.priceOfBusinessSeats.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'CREATE_FLIGHTS_FORM_PRICE_OF_BUSINESS_SEATS_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'CREATE_FLIGHTS_FORM_FROM_AIRPORT' | translate}}</label>
+            <input data-ng-model="model.fromAirport"
+                   id="fromAirport"
+                   name="fromAirport"
+                   type="text"
+                   minlength="1"
+                   maxlength="100"
+                   required />
+            <div data-ng-if="(createFlightsForm.$submitted || createFlightsForm.fromAirport.$touched) && createFlightsForm.fromAirport.$invalid"
+                 data-ng-messages="createFlightsForm.fromAirport.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'CREATE_FLIGHTS_FORM_FROM_AIRPORT_IS_REQUIRED' | translate}}</div>
+                <div data-ng-if="!createFlightsForm.fromAirport.$pristine"
+                     data-ng-message="minlength">{{'CREATE_FLIGHTS_FORM_FROM_AIRPORT_MIN' | translate:'{ min: 1 }'}}</div>
+                <div data-ng-if="!createFlightsForm.fromAirport.$pristine"
+                     data-ng-message="maxlength">{{'CREATE_FLIGHTS_FORM_FROM_AIRPORT_MAX' | translate:'{ max: 100 }'}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'CREATE_FLIGHTS_FORM_TO_AIRPORT' | translate}}</label>
+            <input data-ng-model="model.toAirport"
+                   id="toAirport"
+                   name="toAirport"
+                   type="text"
+                   minlength="1"
+                   maxlength="100"
+                   required />
+            <div data-ng-if="(createFlightsForm.$submitted || createFlightsForm.toAirport.$touched) && createFlightsForm.toAirport.$invalid"
+                 data-ng-messages="createFlightsForm.toAirport.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'CREATE_FLIGHTS_FORM_TO_AIRPORT_IS_REQUIRED' | translate}}</div>
+                <div data-ng-if="!createFlightsForm.toAirport.$pristine"
+                     data-ng-message="minlength">{{'CREATE_FLIGHTS_FORM_TO_AIRPORT_MIN' | translate:'{ min: 1 }'}}</div>
+                <div data-ng-if="!createFlightsForm.toAirport.$pristine"
+                     data-ng-message="maxlength">{{'CREATE_FLIGHTS_FORM_TO_AIRPORT_MAX' | translate:'{ max: 100 }'}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <aircraft-dropdown html-id="aircraftDropdown"
+                               html-name="aircraftDropdown"
+                               selected-id="model.aircraftId"
+                               html-required="true"
+                               html-placeholder="{{'CREATE_FLIGHTS_FORM_AIRCRAFT_DROPDOWN' | translate}}"> </aircraft-dropdown>
+            <div data-ng-if="(createFlightsForm.$submitted || createFlightsForm.aircraftDropdown.$touched) && createFlightsForm.aircraftDropdown.$invalid"
+                 data-ng-messages="createFlightsForm.aircraftDropdown.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'CREATE_FLIGHTS_FORM_AIRCRAFT_DROPDOWN_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+    </md-dialog-content>
+
+    <md-dialog-actions data-layout
+                       data-layout-align="end center">
+        <md-button data-ng-click="dialog.close()">
+            {{'CANCEL' | translate}}
+        </md-button>
+        <md-button type="submit"
+                   data-ng-disabled="submitDisabled"
+                   class="md-raised md-primary">
+            {{'SAVE' | translate}}
+        </md-button>
+    </md-dialog-actions>
+
+</form>

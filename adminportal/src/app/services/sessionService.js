@@ -27,6 +27,10 @@
         stateAccessRights['basePage.airlinesPage']['USER'] = false;
         stateAccessRights['basePage.airlinesPage']['ADMIN'] = true;
 
+        stateAccessRights['basePage.flightsPage'] = [];
+        stateAccessRights['basePage.flightsPage']['USER'] = false;
+        stateAccessRights['basePage.flightsPage']['ADMIN'] = true;
+
         /* jshint ignore:end */
 
         return {
