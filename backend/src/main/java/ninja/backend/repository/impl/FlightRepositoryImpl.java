@@ -15,6 +15,7 @@ import ninja.backend.model.enumeration.*;
 import ninja.backend.repository.tuple.*;
 import ninja.backend.repository.FlightRepositoryCustom;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQueryFactory;
 
 
@@ -24,6 +25,18 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
 
     @Inject
     private JPQLQueryFactory factory;
+
+    @Override
+    public List<FlightSearchFlightsTuple> searchFlights(ZonedDateTime fromDate, ZonedDateTime toDate, String fromAirport, String toAirport) {
+        log.trace(".searchFlights(fromDate: {}, toDate: {}, fromAirport: {}, toAirport: {})", fromDate, toDate, fromAirport, toAirport);
+        final QFlight flight = QFlight.flight;
+        final QAircraft aircraft = QAircraft.aircraft;
+        final QAirline airline = QAirline.airline;
+        return factory.select(flight, aircraft, airline).from(flight).innerJoin(flight.aircraft, aircraft).innerJoin(aircraft.airline, airline)
+                .where(new BooleanBuilder().and(flight.timestamp.goe(fromDate)).and(flight.timestamp.loe(toDate)).and(flight.fromAirport.like("%" + fromAirport + "%"))
+                        .and(flight.toAirport.like("%" + toAirport + "%")))
+                .fetch().stream().map(t -> new FlightSearchFlightsTuple(t.get(flight), t.get(aircraft), t.get(airline))).collect(Collectors.toList());
+    }
 
     @Override
     public List<Flight> findByAircraft(Long aircraftId) {
@@ -47,6 +60,13 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
     }
 
     @Override
+    public List<Flight> findByFreeEconomySeats(Integer freeEconomySeats) {
+        log.trace(".findByFreeEconomySeats(freeEconomySeats: {})", freeEconomySeats);
+        final QFlight flight = QFlight.flight;
+        return factory.select(flight).from(flight).where(flight.freeEconomySeats.eq(freeEconomySeats)).fetch();
+    }
+
+    @Override
     public List<Flight> findByPriceOfEconomySeat(BigDecimal priceOfEconomySeat) {
         log.trace(".findByPriceOfEconomySeat(priceOfEconomySeat: {})", priceOfEconomySeat);
         final QFlight flight = QFlight.flight;
@@ -58,6 +78,13 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
         log.trace(".findByNumberOfBusinessSeats(numberOfBusinessSeats: {})", numberOfBusinessSeats);
         final QFlight flight = QFlight.flight;
         return factory.select(flight).from(flight).where(flight.numberOfBusinessSeats.eq(numberOfBusinessSeats)).fetch();
+    }
+
+    @Override
+    public List<Flight> findByFreeBusinessSeats(Integer freeBusinessSeats) {
+        log.trace(".findByFreeBusinessSeats(freeBusinessSeats: {})", freeBusinessSeats);
+        final QFlight flight = QFlight.flight;
+        return factory.select(flight).from(flight).where(flight.freeBusinessSeats.eq(freeBusinessSeats)).fetch();
     }
 
     @Override

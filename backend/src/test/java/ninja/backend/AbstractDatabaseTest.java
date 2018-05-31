@@ -46,6 +46,12 @@ public abstract class AbstractDatabaseTest implements IFabutRepositoryTest {
     @Inject
     protected FlightRepository flightRepository;
 
+    @Inject
+    protected FlightReservationRepository flightReservationRepository;
+
+    @Inject
+    protected FlightPassengerRepository flightPassengerRepository;
+
     @Before
     public void setup() {
         Fabut.beforeTest(this);
@@ -89,6 +95,11 @@ public abstract class AbstractDatabaseTest implements IFabutRepositoryTest {
         complexTypes.add(ReadFlightResponse.class);
         complexTypes.add(CreateFlightsRequest.class);
         complexTypes.add(UpdateFlightRequest.class);
+        complexTypes.add(SearchFlightDto.class);
+        complexTypes.add(SearchFlightsResponse.class);
+        complexTypes.add(SearchFlightsRequestDto.class);
+        complexTypes.add(BookFlightRequest.class);
+        complexTypes.add(BookFlightRequestPassengers.class);
         complexTypes.add(FindFileRequest.class);
         complexTypes.add(FileUploadDTO.class);
         complexTypes.add(FileDTO.class);
@@ -117,6 +128,10 @@ public abstract class AbstractDatabaseTest implements IFabutRepositoryTest {
             return airlineRepository.findAll();
         } else if (clazz == Flight.class) {
             return flightRepository.findAll();
+        } else if (clazz == FlightReservation.class) {
+            return flightReservationRepository.findAll();
+        } else if (clazz == FlightPassenger.class) {
+            return flightPassengerRepository.findAll();
         }
 
         throw new IllegalStateException("No findAll for class: " + clazz.getName());
@@ -134,6 +149,10 @@ public abstract class AbstractDatabaseTest implements IFabutRepositoryTest {
             return airlineRepository.findOne((Long) id);
         } else if (entityClass == Flight.class) {
             return flightRepository.findOne((Long) id);
+        } else if (entityClass == FlightReservation.class) {
+            return flightReservationRepository.findOne((Long) id);
+        } else if (entityClass == FlightPassenger.class) {
+            return flightPassengerRepository.findOne((Long) id);
         }
 
         throw new IllegalStateException("No findById for class: " + entityClass.getName());
@@ -147,6 +166,8 @@ public abstract class AbstractDatabaseTest implements IFabutRepositoryTest {
         entityTypes.add(Image.class);
         entityTypes.add(Airline.class);
         entityTypes.add(Flight.class);
+        entityTypes.add(FlightReservation.class);
+        entityTypes.add(FlightPassenger.class);
         return entityTypes;
     }
 

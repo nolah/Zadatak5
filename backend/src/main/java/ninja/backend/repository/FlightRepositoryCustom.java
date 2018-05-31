@@ -12,15 +12,21 @@ import ninja.backend.repository.tuple.*;
 
 public interface FlightRepositoryCustom {
 
+    List<FlightSearchFlightsTuple> searchFlights(ZonedDateTime fromDate, ZonedDateTime toDate, String fromAirport, String toAirport);
+
     List<Flight> findByAircraft(Long aircraftId);
 
     List<Flight> findByTimestamp(ZonedDateTime timestamp);
 
     List<Flight> findByNumberOfEconomySeats(Integer numberOfEconomySeats);
 
+    List<Flight> findByFreeEconomySeats(Integer freeEconomySeats);
+
     List<Flight> findByPriceOfEconomySeat(BigDecimal priceOfEconomySeat);
 
     List<Flight> findByNumberOfBusinessSeats(Integer numberOfBusinessSeats);
+
+    List<Flight> findByFreeBusinessSeats(Integer freeBusinessSeats);
 
     List<Flight> findByPriceOfBusinessSeats(BigDecimal priceOfBusinessSeats);
 

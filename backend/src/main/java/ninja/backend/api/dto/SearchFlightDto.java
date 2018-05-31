@@ -1,22 +1,19 @@
-package ninja.backend.model;
+package ninja.backend.api.dto;
 
 import java.io.Serializable;
+
 import java.math.BigDecimal;
 import java.time.*;
-import java.util.*;
-import javax.persistence.*;
+
 import javax.validation.constraints.*;
+
 import eu.execom.fabut.property.PropertyPath;
-import ninja.backend.model.enumeration.*;
 
 
-@Entity
-@Table(name = "Flight")
-public class Flight implements Serializable {
+public class SearchFlightDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     public static final PropertyPath<Long> ID = new PropertyPath<>("id");
-    public static final PropertyPath<Aircraft> AIRCRAFT = new PropertyPath<>("aircraft");
     public static final PropertyPath<ZonedDateTime> TIMESTAMP = new PropertyPath<>("timestamp");
     public static final PropertyPath<Integer> NUMBER_OF_ECONOMY_SEATS = new PropertyPath<>("numberOfEconomySeats");
     public static final PropertyPath<Integer> FREE_ECONOMY_SEATS = new PropertyPath<>("freeEconomySeats");
@@ -26,69 +23,64 @@ public class Flight implements Serializable {
     public static final PropertyPath<BigDecimal> PRICE_OF_BUSINESS_SEATS = new PropertyPath<>("priceOfBusinessSeats");
     public static final PropertyPath<String> FROM_AIRPORT = new PropertyPath<>("fromAirport");
     public static final PropertyPath<String> TO_AIRPORT = new PropertyPath<>("toAirport");
+    public static final PropertyPath<String> MAKER = new PropertyPath<>("maker");
+    public static final PropertyPath<String> TYPE = new PropertyPath<>("type");
+    public static final PropertyPath<String> NAME = new PropertyPath<>("name");
+    public static final PropertyPath<Boolean> HAS_ENOUGH_SEATS = new PropertyPath<>("hasEnoughSeats");
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private Long id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "aircraftId")
-    private Aircraft aircraft;
-
-    @NotNull
-    @Column(name = "timestamp")
     private ZonedDateTime timestamp;
 
     @NotNull
-    @Column(name = "numberOfEconomySeats")
     private Integer numberOfEconomySeats;
 
     @NotNull
-    @Column(name = "freeEconomySeats")
     private Integer freeEconomySeats;
 
     @NotNull
-    @Column(name = "priceOfEconomySeat")
     private BigDecimal priceOfEconomySeat;
 
     @NotNull
-    @Column(name = "numberOfBusinessSeats")
     private Integer numberOfBusinessSeats;
 
     @NotNull
-    @Column(name = "freeBusinessSeats")
     private Integer freeBusinessSeats;
 
     @NotNull
-    @Column(name = "priceOfBusinessSeats")
     private BigDecimal priceOfBusinessSeats;
 
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "fromAirport")
     private String fromAirport;
 
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "toAirport")
     private String toAirport;
 
     @NotNull
-    @OneToMany(mappedBy = "departingFlight", cascade = CascadeType.PERSIST)
-    private final Set<FlightReservation> departingReservations = new LinkedHashSet<>();
+    @Size(min = 1, max = 128)
+    private String maker;
 
     @NotNull
-    @OneToMany(mappedBy = "returningFlight", cascade = CascadeType.PERSIST)
-    private final Set<FlightReservation> returningReservation = new LinkedHashSet<>();
+    @Size(min = 1, max = 128)
+    private String type;
 
-    public Flight() {
+    @NotNull
+    @Size(min = 1, max = 128)
+    private String name;
+
+    @NotNull
+    private Boolean hasEnoughSeats;
+
+    private SearchFlightDto() {
     }
 
-    public Flight(Long id, Aircraft aircraft, ZonedDateTime timestamp, Integer numberOfEconomySeats, Integer freeEconomySeats, BigDecimal priceOfEconomySeat, Integer numberOfBusinessSeats,
-            Integer freeBusinessSeats, BigDecimal priceOfBusinessSeats, String fromAirport, String toAirport) {
+    public SearchFlightDto(Long id, ZonedDateTime timestamp, Integer numberOfEconomySeats, Integer freeEconomySeats, BigDecimal priceOfEconomySeat, Integer numberOfBusinessSeats,
+            Integer freeBusinessSeats, BigDecimal priceOfBusinessSeats, String fromAirport, String toAirport, String maker, String type, String name, Boolean hasEnoughSeats) {
         this.id = id;
-        this.aircraft = aircraft;
         this.timestamp = timestamp;
         this.numberOfEconomySeats = numberOfEconomySeats;
         this.freeEconomySeats = freeEconomySeats;
@@ -98,116 +90,66 @@ public class Flight implements Serializable {
         this.priceOfBusinessSeats = priceOfBusinessSeats;
         this.fromAirport = fromAirport;
         this.toAirport = toAirport;
-    }
-
-    public Flight(Aircraft aircraft, ZonedDateTime timestamp, Integer numberOfEconomySeats, Integer freeEconomySeats, BigDecimal priceOfEconomySeat, Integer numberOfBusinessSeats,
-            Integer freeBusinessSeats, BigDecimal priceOfBusinessSeats, String fromAirport, String toAirport) {
-        this.aircraft = aircraft;
-        this.timestamp = timestamp;
-        this.numberOfEconomySeats = numberOfEconomySeats;
-        this.freeEconomySeats = freeEconomySeats;
-        this.priceOfEconomySeat = priceOfEconomySeat;
-        this.numberOfBusinessSeats = numberOfBusinessSeats;
-        this.freeBusinessSeats = freeBusinessSeats;
-        this.priceOfBusinessSeats = priceOfBusinessSeats;
-        this.fromAirport = fromAirport;
-        this.toAirport = toAirport;
+        this.maker = maker;
+        this.type = type;
+        this.name = name;
+        this.hasEnoughSeats = hasEnoughSeats;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Aircraft getAircraft() {
-        return aircraft;
-    }
-
-    public void setAircraft(Aircraft aircraft) {
-        this.aircraft = aircraft;
-    }
-
     public ZonedDateTime getTimestamp() {
         return timestamp;
-    }
-
-    public void setTimestamp(ZonedDateTime timestamp) {
-        this.timestamp = timestamp;
     }
 
     public Integer getNumberOfEconomySeats() {
         return numberOfEconomySeats;
     }
 
-    public void setNumberOfEconomySeats(Integer numberOfEconomySeats) {
-        this.numberOfEconomySeats = numberOfEconomySeats;
-    }
-
     public Integer getFreeEconomySeats() {
         return freeEconomySeats;
-    }
-
-    public void setFreeEconomySeats(Integer freeEconomySeats) {
-        this.freeEconomySeats = freeEconomySeats;
     }
 
     public BigDecimal getPriceOfEconomySeat() {
         return priceOfEconomySeat;
     }
 
-    public void setPriceOfEconomySeat(BigDecimal priceOfEconomySeat) {
-        this.priceOfEconomySeat = priceOfEconomySeat;
-    }
-
     public Integer getNumberOfBusinessSeats() {
         return numberOfBusinessSeats;
-    }
-
-    public void setNumberOfBusinessSeats(Integer numberOfBusinessSeats) {
-        this.numberOfBusinessSeats = numberOfBusinessSeats;
     }
 
     public Integer getFreeBusinessSeats() {
         return freeBusinessSeats;
     }
 
-    public void setFreeBusinessSeats(Integer freeBusinessSeats) {
-        this.freeBusinessSeats = freeBusinessSeats;
-    }
-
     public BigDecimal getPriceOfBusinessSeats() {
         return priceOfBusinessSeats;
-    }
-
-    public void setPriceOfBusinessSeats(BigDecimal priceOfBusinessSeats) {
-        this.priceOfBusinessSeats = priceOfBusinessSeats;
     }
 
     public String getFromAirport() {
         return fromAirport;
     }
 
-    public void setFromAirport(String fromAirport) {
-        this.fromAirport = fromAirport;
-    }
-
     public String getToAirport() {
         return toAirport;
     }
 
-    public void setToAirport(String toAirport) {
-        this.toAirport = toAirport;
+    public String getMaker() {
+        return maker;
     }
 
-    public Set<FlightReservation> getDepartingReservations() {
-        return departingReservations;
+    public String getType() {
+        return type;
     }
 
-    public Set<FlightReservation> getReturningReservation() {
-        return returningReservation;
+    public String getName() {
+        return name;
+    }
+
+    public Boolean getHasEnoughSeats() {
+        return hasEnoughSeats;
     }
 
     @Override
@@ -218,13 +160,9 @@ public class Flight implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        final Flight other = (Flight) obj;
+        final SearchFlightDto other = (SearchFlightDto) obj;
         if (this.id != null && other.id != null && !this.id.equals(other.id))
             return false;
-        if (!((this.aircraft == null && other.aircraft == null) || (this.aircraft != null && other.aircraft != null && this.aircraft.getId() == null && other.aircraft.getId() == null)
-                || this.aircraft.getId().equals(other.aircraft.getId())))
-            return false;
-
         if (this.timestamp != null && other.timestamp != null && !this.timestamp.equals(other.timestamp))
             return false;
         if (this.numberOfEconomySeats != null && other.numberOfEconomySeats != null && !this.numberOfEconomySeats.equals(other.numberOfEconomySeats))
@@ -243,6 +181,14 @@ public class Flight implements Serializable {
             return false;
         if (this.toAirport != null && other.toAirport != null && !this.toAirport.equals(other.toAirport))
             return false;
+        if (this.maker != null && other.maker != null && !this.maker.equals(other.maker))
+            return false;
+        if (this.type != null && other.type != null && !this.type.equals(other.type))
+            return false;
+        if (this.name != null && other.name != null && !this.name.equals(other.name))
+            return false;
+        if (this.hasEnoughSeats != null && other.hasEnoughSeats != null && !this.hasEnoughSeats.equals(other.hasEnoughSeats))
+            return false;
         return true;
     }
 
@@ -251,7 +197,6 @@ public class Flight implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-        result = prime * result + ((this.aircraft == null || this.aircraft.getId() == null) ? 0 : this.aircraft.getId().hashCode());
         result = prime * result + ((this.timestamp == null) ? 0 : this.timestamp.hashCode());
         result = prime * result + ((this.numberOfEconomySeats == null) ? 0 : this.numberOfEconomySeats.hashCode());
         result = prime * result + ((this.freeEconomySeats == null) ? 0 : this.freeEconomySeats.hashCode());
@@ -261,15 +206,19 @@ public class Flight implements Serializable {
         result = prime * result + ((this.priceOfBusinessSeats == null) ? 0 : this.priceOfBusinessSeats.hashCode());
         result = prime * result + ((this.fromAirport == null) ? 0 : this.fromAirport.hashCode());
         result = prime * result + ((this.toAirport == null) ? 0 : this.toAirport.hashCode());
+        result = prime * result + ((this.maker == null) ? 0 : this.maker.hashCode());
+        result = prime * result + ((this.type == null) ? 0 : this.type.hashCode());
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        result = prime * result + ((this.hasEnoughSeats == null) ? 0 : this.hasEnoughSeats.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "Flight[" + "this.id=" + this.id + ", this.aircraft=" + (this.aircraft == null ? this.aircraft : this.aircraft.getId()) + ", this.timestamp=" + this.timestamp
-                + ", this.numberOfEconomySeats=" + this.numberOfEconomySeats + ", this.freeEconomySeats=" + this.freeEconomySeats + ", this.priceOfEconomySeat=" + this.priceOfEconomySeat
-                + ", this.numberOfBusinessSeats=" + this.numberOfBusinessSeats + ", this.freeBusinessSeats=" + this.freeBusinessSeats + ", this.priceOfBusinessSeats=" + this.priceOfBusinessSeats
-                + ", this.fromAirport=" + this.fromAirport + ", this.toAirport=" + this.toAirport + "]";
+        return "SearchFlightDto[" + "this.id=" + this.id + ", this.timestamp=" + this.timestamp + ", this.numberOfEconomySeats=" + this.numberOfEconomySeats + ", this.freeEconomySeats="
+                + this.freeEconomySeats + ", this.priceOfEconomySeat=" + this.priceOfEconomySeat + ", this.numberOfBusinessSeats=" + this.numberOfBusinessSeats + ", this.freeBusinessSeats="
+                + this.freeBusinessSeats + ", this.priceOfBusinessSeats=" + this.priceOfBusinessSeats + ", this.fromAirport=" + this.fromAirport + ", this.toAirport=" + this.toAirport
+                + ", this.maker=" + this.maker + ", this.type=" + this.type + ", this.name=" + this.name + ", this.hasEnoughSeats=" + this.hasEnoughSeats + "]";
     }
 
 }

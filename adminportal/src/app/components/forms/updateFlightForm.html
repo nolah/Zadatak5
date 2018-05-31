@@ -35,6 +35,19 @@
             </div>
         </md-input-container>
         <md-input-container class="md-block">
+            <label>{{'UPDATE_FLIGHT_FORM_FREE_ECONOMY_SEATS' | translate}}</label>
+            <input data-ng-model="model.freeEconomySeats"
+                   id="freeEconomySeats"
+                   name="freeEconomySeats"
+                   type="number"
+                   required />
+            <div data-ng-if="(updateFlightForm.$submitted || updateFlightForm.freeEconomySeats.$touched) && updateFlightForm.freeEconomySeats.$invalid"
+                 data-ng-messages="updateFlightForm.freeEconomySeats.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'UPDATE_FLIGHT_FORM_FREE_ECONOMY_SEATS_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
             <label>{{'UPDATE_FLIGHT_FORM_PRICE_OF_ECONOMY_SEAT' | translate}}</label>
             <input data-ng-model="model.priceOfEconomySeat"
                    id="priceOfEconomySeat"
@@ -58,6 +71,19 @@
                  data-ng-messages="updateFlightForm.numberOfBusinessSeats.$error"
                  class="help-block">
                 <div data-ng-message="required">{{'UPDATE_FLIGHT_FORM_NUMBER_OF_BUSINESS_SEATS_IS_REQUIRED' | translate}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'UPDATE_FLIGHT_FORM_FREE_BUSINESS_SEATS' | translate}}</label>
+            <input data-ng-model="model.freeBusinessSeats"
+                   id="freeBusinessSeats"
+                   name="freeBusinessSeats"
+                   type="number"
+                   required />
+            <div data-ng-if="(updateFlightForm.$submitted || updateFlightForm.freeBusinessSeats.$touched) && updateFlightForm.freeBusinessSeats.$invalid"
+                 data-ng-messages="updateFlightForm.freeBusinessSeats.$error"
+                 class="help-block">
+                <div data-ng-message="required">{{'UPDATE_FLIGHT_FORM_FREE_BUSINESS_SEATS_IS_REQUIRED' | translate}}</div>
             </div>
         </md-input-container>
         <md-input-container class="md-block">

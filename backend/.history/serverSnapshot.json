@@ -184,6 +184,10 @@
             "name": "numberOfEconomySeats",
             "wrappers": []
         }, {
+            "dslType": "int",
+            "name": "freeEconomySeats",
+            "wrappers": []
+        }, {
             "dslType": "decimal",
             "name": "priceOfEconomySeat",
             "wrappers": [],
@@ -192,6 +196,10 @@
         }, {
             "dslType": "int",
             "name": "numberOfBusinessSeats",
+            "wrappers": []
+        }, {
+            "dslType": "int",
+            "name": "freeBusinessSeats",
             "wrappers": []
         }, {
             "dslType": "decimal",
@@ -228,6 +236,128 @@
             "wrappers": []
         }],
         "primaryKeySqlName": "PK_FLI_I_B11EFA",
+        "uniques": [],
+        "indices": []
+    }, {
+        "name": "FlightReservation",
+        "properties": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }, {
+            "dslType": "long",
+            "name": "departingFlightId",
+            "wrappers": ["OPTIONAL"]
+        }, {
+            "dslType": "long",
+            "name": "returningFlightId",
+            "wrappers": ["OPTIONAL"]
+        }, {
+            "dslType": "long",
+            "name": "userId",
+            "wrappers": []
+        }, {
+            "dslType": "enum",
+            "name": "paymentMethod",
+            "wrappers": []
+        }],
+        "references": [{
+            "name": "departingFlight",
+            "model": "Flight",
+            "properties": [{
+                "dslType": "long",
+                "name": "departingFlightId",
+                "wrappers": ["OPTIONAL"]
+            }],
+            "sqlName": "FK_FLI_RES.DF_FLI.I_DBEB0C"
+        }, {
+            "name": "returningFlight",
+            "model": "Flight",
+            "properties": [{
+                "dslType": "long",
+                "name": "returningFlightId",
+                "wrappers": ["OPTIONAL"]
+            }],
+            "sqlName": "FK_FLI_RES.RF_FLI.I_D30865"
+        }, {
+            "name": "user",
+            "model": "User",
+            "properties": [{
+                "dslType": "long",
+                "name": "userId",
+                "wrappers": []
+            }],
+            "sqlName": "FK_FLI_RES.U_USE.I_A2F6D4"
+        }],
+        "primaryKeys": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }],
+        "primaryKeySqlName": "PK_FLI_RES_I_569C46",
+        "uniques": [],
+        "indices": []
+    }, {
+        "name": "FlightPassenger",
+        "properties": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }, {
+            "dslType": "long",
+            "name": "flightReservationId",
+            "wrappers": []
+        }, {
+            "dslType": "text",
+            "name": "firstName",
+            "wrappers": [],
+            "minSize": "1",
+            "maxSize": "100"
+        }, {
+            "dslType": "text",
+            "name": "lastName",
+            "wrappers": [],
+            "minSize": "1",
+            "maxSize": "100"
+        }, {
+            "dslType": "text",
+            "name": "passportNumber",
+            "wrappers": [],
+            "minSize": "1",
+            "maxSize": "20"
+        }, {
+            "dslType": "boolean",
+            "name": "smallCabinLuggage",
+            "wrappers": []
+        }, {
+            "dslType": "boolean",
+            "name": "largeCabinLuggage",
+            "wrappers": []
+        }, {
+            "dslType": "boolean",
+            "name": "checkedBag",
+            "wrappers": []
+        }, {
+            "dslType": "enum",
+            "name": "seatType",
+            "wrappers": []
+        }],
+        "references": [{
+            "name": "flightReservation",
+            "model": "FlightReservation",
+            "properties": [{
+                "dslType": "long",
+                "name": "flightReservationId",
+                "wrappers": []
+            }],
+            "sqlName": "FK_FLI_PAS.FR_FLI_RES.I_4BBC47"
+        }],
+        "primaryKeys": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }],
+        "primaryKeySqlName": "PK_FLI_PAS_I_E322F0",
         "uniques": [],
         "indices": []
     }]

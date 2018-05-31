@@ -88,4 +88,33 @@
         fileApiProvider.isMocked = clientConfigurationValues.useServerMock;
     }
 
+    angular
+        .module('adminportal')
+        .provider('webApi', webApi)
+        .config(webApiProvider);
+
+    function webApi() {
+        var isMocked = false;
+
+        var $get = ['webApiService', 'webApiMockService', 'clientConfigurationValues', function (webApiService, webApiMockService, clientConfigurationValues) {
+            if (this.isMocked) {
+                return webApiMockService;
+            } else {
+                if (clientConfigurationValues.remoteBackendUrl) {
+                    webApiService.init(clientConfigurationValues.remoteBackendUrl);
+                }
+                return webApiService;
+            }
+        }];
+
+        return {
+            isMocked: isMocked,
+            $get: $get
+        };
+    }
+
+    function webApiProvider(clientConfigurationValues, webApiProvider) {
+        webApiProvider.isMocked = clientConfigurationValues.useServerMock;
+    }
+
 })();

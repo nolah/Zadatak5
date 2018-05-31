@@ -17,7 +17,7 @@
     function appConfig($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
             .state('basePage', {
-                url: '/',
+                url: '',
                 templateUrl: 'src/app/components/pages/basePage.html',
                 controller: 'BasePageController'
             })

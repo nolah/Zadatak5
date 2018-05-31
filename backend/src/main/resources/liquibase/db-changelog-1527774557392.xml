@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="generator" id="1527774557392">
+        <!--CREATE TABLES-->
+        <createTable tableName="User">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="setPasswordCode" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="setPasswordTimestamp" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="passwordHash" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="Aircraft">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="maker" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="airlineId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="Image">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="filePath" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="aircraftId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="Airline">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="luggageDetails" type="VARCHAR(256)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createTable tableName="Flight">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="aircraftId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="numberOfEconomySeats" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="freeEconomySeats" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="priceOfEconomySeat" type="DECIMAL(20, 4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="numberOfBusinessSeats" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="freeBusinessSeats" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="priceOfBusinessSeats" type="DECIMAL(20, 4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fromAirport" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="toAirport" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="FlightReservation">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="departingFlightId" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="returningFlightId" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="userId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="paymentMethod" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="flightId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="FlightPassenger">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="flightReservationId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="firstName" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastName" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="passportNumber" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="smallCabinLuggage" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="largeCabinLuggage" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="checkedBag" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="seatType" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <!--ADD FOREIGN KEYS-->
+        <addForeignKeyConstraint baseColumnNames="airlineId" baseTableName="Aircraft" constraintName="FK_AIR.A_AIR.I_7AC959" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Airline"/>
+        <addForeignKeyConstraint baseColumnNames="aircraftId" baseTableName="Image" constraintName="FK_IMA.A_AIR.I_038BFC" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Aircraft"/>
+        <addForeignKeyConstraint baseColumnNames="aircraftId" baseTableName="Flight" constraintName="FK_FLI.A_AIR.I_90D799" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Aircraft"/>
+        <addForeignKeyConstraint baseColumnNames="departingFlightId" baseTableName="FlightReservation" constraintName="FK_FLI_RES.DF_FLI.I_DBEB0C" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Flight"/>
+        <addForeignKeyConstraint baseColumnNames="returningFlightId" baseTableName="FlightReservation" constraintName="FK_FLI_RES.RF_FLI.I_D30865" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Flight"/>
+        <addForeignKeyConstraint baseColumnNames="userId" baseTableName="FlightReservation" constraintName="FK_FLI_RES.U_USE.I_A2F6D4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="User"/>
+        <addForeignKeyConstraint baseColumnNames="flightId" baseTableName="FlightReservation" constraintName="FK_FLI_RES.F_FLI.I_47884F" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Flight"/>
+        <addForeignKeyConstraint baseColumnNames="flightReservationId" baseTableName="FlightPassenger" constraintName="FK_FLI_PAS.FR_FLI_RES.I_4BBC47" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="FlightReservation"/>
+        <!--ADD UNIQUE CONSTRAINTS-->
+        <addUniqueConstraint columnNames="setPasswordCode" constraintName="UNQ_USE_SPC_93CDAD" tableName="User"/>
+        <addUniqueConstraint columnNames="username" constraintName="UNQ_USE_U_6DC017" tableName="User"/>
+    </changeSet>
+</databaseChangeLog>

@@ -44,8 +44,8 @@ public class UserService {
         log.debug("signUp(dto)", dto);
 
         final User model = new User();
-        model.setSetPasswordCode(Optional.ofNullable(dto.getSetPasswordCode()));
-        model.setSetPasswordTimestamp(dto.getSetPasswordTimestamp());
+//        model.setSetPasswordCode(Optional.ofNullable(dto.getSetPasswordCode()));
+        model.setSetPasswordTimestamp(ZonedDateTime.now());
         model.setUsername(dto.getUsername());
         // model.setPassword(); // TODO set this field manually
         model.setRole(Role.USER);

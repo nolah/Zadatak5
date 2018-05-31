@@ -206,8 +206,10 @@
          *     aircraftId: Int
          *     timestamp: DateTime
          *     numberOfEconomySeats: Int
+         *     freeEconomySeats: Int
          *     priceOfEconomySeat: Decimal(20, 4)
          *     numberOfBusinessSeats: Int
+         *     freeBusinessSeats: Int
          *     priceOfBusinessSeats: Decimal(20, 4)
          *     fromAirport: String
          *     toAirport: String
@@ -240,8 +242,10 @@
          *   aircraftId: Int
          *   timestamp: DateTime
          *   numberOfEconomySeats: Int
+         *   freeEconomySeats: Int
          *   priceOfEconomySeat: Decimal(20, 4)
          *   numberOfBusinessSeats: Int
+         *   freeBusinessSeats: Int
          *   priceOfBusinessSeats: Decimal(20, 4)
          *   fromAirport: String
          *   toAirport: String

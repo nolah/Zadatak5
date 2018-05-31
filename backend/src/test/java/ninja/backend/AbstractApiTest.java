@@ -170,6 +170,24 @@ public abstract class AbstractApiTest extends AbstractDatabaseTest {
         return RestResponse.fromMvcResult(result, objectMapper, Void.class);
     }
 
+    public RestResponse<SearchFlightsResponse> searchFlights(ZonedDateTime departingDate, ZonedDateTime returning, String fromAirport, String toAirport, Integer travelers, SeatType seatType)
+            throws Exception {
+
+        final MvcResult result = mockMvc.perform(get("/api" + "/search-flights").contentType(MediaType.APPLICATION_JSON).param("departingDate", departingDate.toString())
+                .param("returning", returning.toString()).param("fromAirport", fromAirport).param("toAirport", toAirport).param("travelers", travelers.toString())
+                .param("seatType", seatType.toString()).accept(MediaType.APPLICATION_JSON)).andReturn();
+
+        return RestResponse.fromMvcResult(result, objectMapper, SearchFlightsResponse.class);
+    }
+
+    public RestResponse<Void> bookFlight(BookFlightRequest request, String accessToken) throws Exception {
+
+        final MvcResult result = mockMvc.perform(post("/api" + "/book-flight").contentType(MediaType.APPLICATION_JSON).header("Authorization", "Bearer " + accessToken)
+                .content(convertObjectToJsonBytes(request)).accept(MediaType.APPLICATION_JSON)).andReturn();
+
+        return RestResponse.fromMvcResult(result, objectMapper, Void.class);
+    }
+
     public RestResponse<Void> findFile(String key, String fileName) throws Exception {
 
         final MvcResult result = mockMvc.perform(get("/api" + "/file/" + key + "/" + fileName + "").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();

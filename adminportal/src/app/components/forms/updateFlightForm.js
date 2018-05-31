@@ -45,8 +45,10 @@
                 $scope.model.aircraftId = data.aircraftId;
                 $scope.model.timestamp = data.timestamp === null ? null : new Date(data.timestamp);
                 $scope.model.numberOfEconomySeats = data.numberOfEconomySeats;
+                $scope.model.freeEconomySeats = data.freeEconomySeats;
                 $scope.model.priceOfEconomySeat = data.priceOfEconomySeat;
                 $scope.model.numberOfBusinessSeats = data.numberOfBusinessSeats;
+                $scope.model.freeBusinessSeats = data.freeBusinessSeats;
                 $scope.model.priceOfBusinessSeats = data.priceOfBusinessSeats;
                 $scope.model.fromAirport = data.fromAirport;
                 $scope.model.toAirport = data.toAirport;
@@ -55,7 +57,7 @@
         }
 
         function onClickSubmit(form) {
-            if (form.$invalid) {
+            if (form.aircraftId.$invalid || form.timestamp.$invalid || form.numberOfEconomySeats.$invalid || form.priceOfEconomySeat.$invalid || form.numberOfBusinessSeats.$invalid || form.priceOfBusinessSeats.$invalid || form.fromAirport.$invalid || form.toAirport.$invalid) {
                 form.$setSubmitted();
                 return false;
             }

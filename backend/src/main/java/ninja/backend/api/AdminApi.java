@@ -183,8 +183,10 @@ public class AdminApi {
             final Long aircraftId = tuple.getFlight().getAircraft().getId();
             final ZonedDateTime timestamp = tuple.getFlight().getTimestamp();
             final Integer numberOfEconomySeats = tuple.getFlight().getNumberOfEconomySeats();
+            final Integer freeEconomySeats = tuple.getFlight().getFreeEconomySeats();
             final BigDecimal priceOfEconomySeat = tuple.getFlight().getPriceOfEconomySeat();
             final Integer numberOfBusinessSeats = tuple.getFlight().getNumberOfBusinessSeats();
+            final Integer freeBusinessSeats = tuple.getFlight().getFreeBusinessSeats();
             final BigDecimal priceOfBusinessSeats = tuple.getFlight().getPriceOfBusinessSeats();
             final String fromAirport = tuple.getFlight().getFromAirport();
             final String toAirport = tuple.getFlight().getToAirport();
@@ -195,8 +197,8 @@ public class AdminApi {
             final String airlineName = tuple.getAirline().getName();
             final String airlineDescription = tuple.getAirline().getDescription();
             final String airlineLuggageDetails = tuple.getAirline().getLuggageDetails().orElse(null);
-            return new FlightsResponse(id, aircraftId, timestamp, numberOfEconomySeats, priceOfEconomySeat, numberOfBusinessSeats, priceOfBusinessSeats, fromAirport, toAirport, aircraftMaker,
-                    aircraftType, aircraftAirlineId, airlineId, airlineName, airlineDescription, airlineLuggageDetails);
+            return new FlightsResponse(id, aircraftId, timestamp, numberOfEconomySeats, freeEconomySeats, priceOfEconomySeat, numberOfBusinessSeats, freeBusinessSeats, priceOfBusinessSeats,
+                    fromAirport, toAirport, aircraftMaker, aircraftType, aircraftAirlineId, airlineId, airlineName, airlineDescription, airlineLuggageDetails);
         }).collect(Collectors.toList());
     }
 
@@ -212,12 +214,15 @@ public class AdminApi {
         final Long aircraftId = model.getAircraft().getId();
         final ZonedDateTime timestamp = model.getTimestamp();
         final Integer numberOfEconomySeats = model.getNumberOfEconomySeats();
+        final Integer freeEconomySeats = model.getFreeEconomySeats();
         final BigDecimal priceOfEconomySeat = model.getPriceOfEconomySeat();
         final Integer numberOfBusinessSeats = model.getNumberOfBusinessSeats();
+        final Integer freeBusinessSeats = model.getFreeBusinessSeats();
         final BigDecimal priceOfBusinessSeats = model.getPriceOfBusinessSeats();
         final String fromAirport = model.getFromAirport();
         final String toAirport = model.getToAirport();
-        return new ReadFlightResponse(id, aircraftId, timestamp, numberOfEconomySeats, priceOfEconomySeat, numberOfBusinessSeats, priceOfBusinessSeats, fromAirport, toAirport);
+        return new ReadFlightResponse(id, aircraftId, timestamp, numberOfEconomySeats, freeEconomySeats, priceOfEconomySeat, numberOfBusinessSeats, freeBusinessSeats, priceOfBusinessSeats,
+                fromAirport, toAirport);
     }
 
     public void createFlights(CreateFlightsRequest dto, Long principalId) {
@@ -261,8 +266,10 @@ public class AdminApi {
         model.setTimestamp(timestamp);
         model.setNumberOfEconomySeats(dto.getNumberOfEconomySeats());
         model.setPriceOfEconomySeat(dto.getPriceOfEconomySeat());
+        model.setFreeEconomySeats(dto.getNumberOfEconomySeats());
         model.setNumberOfBusinessSeats(dto.getNumberOfBusinessSeats());
         model.setPriceOfBusinessSeats(dto.getPriceOfBusinessSeats());
+        model.setFreeBusinessSeats(dto.getNumberOfBusinessSeats());
         model.setFromAirport(dto.getFromAirport());
         model.setToAirport(dto.getToAirport());
         // model.setSchemeType(); // TODO set this field manually
